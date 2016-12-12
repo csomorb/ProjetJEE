@@ -1,13 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <f:view>
 <h:body>
-	
+	<ui:include src="/WEB-INF/menu.xhtml" />
 	<h1>AlbumList</h1>
 
 <h:form >
@@ -22,18 +22,15 @@
       <h:outputText value="#{alb.description}"/> 
    </h:column>
    <h:column>
-   	  <f:facet name="header">Lien</f:facet>
-   	  
-   	  <h:link value="Lien de l'album" outcome="album" >
-		<f:param name="idAlbum" value="#{alb.id}" />
-	  </h:link>
-   
-   </h:column>
-   <h:column>
-   	  <f:facet name="header">ActionButton</f:facet>	  
-   	  <h:commandButton action="#{albumController.afficherAlbum}">
+   	  <f:facet name="header">Lien de l'album</f:facet>	  
+     <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher button">
 		<f:param name="idAlbum" value="#{alb.id}" />
 	</h:commandButton>
+	<h:commandLink action="#{albumController.afficherAlbum}" value="Afficher lien">
+		<f:param name="idAlbum" value="#{alb.id}" />
+	</h:commandLink>
+	
+	
    	</h:column>  
    
    

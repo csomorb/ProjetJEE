@@ -6,8 +6,11 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
     <h:head>
         <title>Album</title>
+        <h:outputStylesheet library="css" name="album.css"  />
     </h:head>
     <h:body>
+    <ui:include src="/WEB-INF/menu.xhtml" />
+    
     <h1>
         <h:outputText value="#{albumController.album.title}"> </h:outputText>
     </h1>
@@ -16,15 +19,7 @@
     </p>
     
     <ui:repeat var="image" value="#{albumController.listeImage}">
-    a
-    getlocalfile : 
-    <h:outputText value=" #{image.getLocalfile()}"></h:outputText>  <br/>
-    geturi : 
-    <h:outputText value=" #{image.getUri()}"></h:outputText> <br/>
-    get title : 
-    <h:outputText value=" #{image.getTitle()}"></h:outputText> <br/>
-    
-    <img src="#{image.getLocalfile()}" alt="s"/>
+     <img src="#{image.getLocalfile()}" alt="s" class="minature-album"/> 
     </ui:repeat>
     
     

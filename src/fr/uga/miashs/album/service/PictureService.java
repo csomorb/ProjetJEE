@@ -12,14 +12,14 @@ import fr.uga.miashs.album.model.Picture;
 
 public class PictureService extends JpaService<Long,Picture>{
 
-	public Picture create(Picture p, Album a, Path pa) throws ServiceException {
+	public Picture create(Picture p, Album a, Path pa, String filename) throws ServiceException {
 		
 	//	p.setAlbum(getEm().merge(getEm().merge(p.getAlbum())));
 		
 		p.setAlbum(a);
 	//	System.out.println(p.getAlbum().getOwner().getEmail());
-		p.setTitle("titre");
-		p.setLocalfile(pa.toString());
+		p.setTitle(filename);
+		p.setLocalfile("resources/img/"+a.getOwner().getId()+"/"+a.getId()+"/"+ filename );
 		System.out.println("phase2"+pa.toString());
 		p.setUri(pa.toUri());
 		super.create(p);

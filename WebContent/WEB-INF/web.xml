@@ -19,9 +19,10 @@
     <param-value>Development</param-value>
   </context-param>
   
+  <!-- Directoire ou sauvegarder les photos -->
   <context-param>
     <param-name>directory</param-name>
-    <param-value>C:/Albums/</param-value>
+    <param-value>C:\Users\Barna\workspace\rera\WebContent\resources\img</param-value>
   </context-param>
   
 </web-app>

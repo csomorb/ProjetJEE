@@ -1,0 +1,10 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
+    <h:link value="Mes albums" outcome="list-album" />
+    <h:link value="Ajouter un album" outcome="add-album" />
+    <h:link value="Lister des utilisateurs" outcome="list-user" />
+</ui:composition>

@@ -42,10 +42,13 @@ public class AlbumService extends JpaService<Long,Album> {
 		System.out.println("phase1");
 		System.out.println(zip.getSize());
 		Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("directory"));
-		Path utilPath = rootDir.resolve(a.getOwner().getFirstname() +" " + a.getOwner().getLastname() );
-		Path albPath = utilPath.resolve(a.getTitle() );
-		System.out.println(albPath.toString());
+	//	Path utilPath = rootDir.resolve(a.getOwner().getFirstname() +" " + a.getOwner().getLastname() );
+		Path utilPath = rootDir.resolve( Long.toString(a.getOwner().getId()) );
+	//	Path albPath = utilPath.resolve(a.getTitle() );
 		super.create(a);
+		Path albPath = utilPath.resolve(Long.toString( a.getId()) );
+		System.out.println(albPath.toString());
+	//	super.create(a);
 		try {
 			Files.createDirectories(albPath);
 			saveFiles(new ZipInputStream(zip.getInputStream()), albPath,a);
@@ -91,6 +94,7 @@ public class AlbumService extends JpaService<Long,Album> {
 				try {
 				//	Set<Picture> setPicture = null;
 					Path path = whereDir.resolve(filename);
+					
 					// Files.createFile(path);
 					OutputStream bos = new BufferedOutputStream(Files.newOutputStream(path));
 					byte[] b = new byte[4094];
@@ -112,7 +116,7 @@ public class AlbumService extends JpaService<Long,Album> {
 						// on ajoute l'image à la bdd
 						Picture p = new Picture();
 						try {
-							p = pictureService.create(p, a, path);
+							p = pictureService.create(p, a, path, filename);
 					//		setPicture.add(p);
 						} catch (ServiceException e) {
 							// TODO Auto-generated catch block
