@@ -14,13 +14,13 @@ public class PictureService extends JpaService<Long,Picture>{
 
 	public Picture create(Picture p, Album a, Path pa) throws ServiceException {
 		
-		p.setAlbum(getEm().merge(getEm().merge(p.getAlbum())));
+	//	p.setAlbum(getEm().merge(getEm().merge(p.getAlbum())));
 		
-	//	p.setAlbum(a);
-		
+		p.setAlbum(a);
+	//	System.out.println(p.getAlbum().getOwner().getEmail());
 		p.setTitle("titre");
-		p.setLocalfile(pa);
-		System.out.println("phase2");
+		p.setLocalfile(pa.toString());
+		System.out.println("phase2"+pa.toString());
 		p.setUri(pa.toUri());
 		super.create(p);
 		return p;

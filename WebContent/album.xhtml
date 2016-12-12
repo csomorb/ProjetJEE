@@ -17,9 +17,14 @@
     
     <ui:repeat var="image" value="#{albumController.listeImage}">
     a
-    <h:outputText value=" #{image.getLocalfile()}"></h:outputText>
+    getlocalfile : 
+    <h:outputText value=" #{image.getLocalfile()}"></h:outputText>  <br/>
+    geturi : 
+    <h:outputText value=" #{image.getUri()}"></h:outputText> <br/>
+    get title : 
+    <h:outputText value=" #{image.getTitle()}"></h:outputText> <br/>
     
-     
+    <img src="#{image.getLocalfile()}" alt="s"/>
     </ui:repeat>
     
     

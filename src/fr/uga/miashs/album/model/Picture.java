@@ -2,7 +2,9 @@ package fr.uga.miashs.album.model;
 
 import java.net.URI;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,7 +37,7 @@ public class Picture {
 	private URI uri;
 	
 	@NotNull
-	private Path localfile;
+	private String localfile;
 	
 /*	public Picture(Album album){
 		this.album = album;
@@ -73,11 +75,11 @@ public class Picture {
 		this.uri = uri;
 	}
 
-	public Path getLocalfile() {
+	public String getLocalfile() {
 		return localfile;
 	}
 
-	public void setLocalfile(Path localfile) {
+	public void setLocalfile(String localfile) {
 		this.localfile = localfile;
 	}
 	
