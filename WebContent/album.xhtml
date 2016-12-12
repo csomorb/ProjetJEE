@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Album</title>
+    </h:head>
+    <h:body>
+    <h1>
+        <h:outputText value="#{albumController.album.title}"> </h:outputText>
+    </h1>
+    <p>
+    	<h:outputText value="#{albumController.album.description}"> </h:outputText>
+    </p>
+    
+    <ui:repeat var="image" value="#{albumController.listeImage}">
+    a
+    <h:outputText value=" #{image.getLocalfile()}"></h:outputText>
+    
+     
+    </ui:repeat>
+    
+    
+    
+    </h:body>
+</html>
