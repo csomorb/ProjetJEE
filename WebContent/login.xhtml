@@ -2,13 +2,14 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:body>
 
 	<h:form>
 		<h:outputLabel for="email" value="Adresse email : " />
-		<h:inputText id="email" value="#{appUserSession.email}" 
+		<p:inputText id="email" value="#{appUserSession.email}" 
 			title="Renseignez votre email"/>
 			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
 		<br/>

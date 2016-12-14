@@ -6,7 +6,9 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 //import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
@@ -33,6 +35,17 @@ public class AlbumService extends JpaService<Long,Album> {
 	
 	AlbumService(){
 		this.pictureService = new PictureService();
+	}
+	
+	
+	public List<AppUser> getNotSharedWith(Album a){
+		AppUserService ap = new AppUserService();
+		
+		Set<AppUser> sharedWith = a.getSharedWith();
+		List<AppUser>listePartage = new ArrayList<AppUser>(a.getSharedWith());
+		List<AppUser>userNotShared = ap.listUsers();
+		
+		return userNotShared;
 	}
 	
 	private PictureService pictureService;

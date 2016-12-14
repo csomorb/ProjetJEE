@@ -8,4 +8,5 @@ public interface Pages {
 	public final static String list_user = "faces/list-user.xhtml";
 	public final static String login = "faces/login.xhtml";
 	public final static String album = "faces/album.xhtml";
+	public final static String partage = "faces/partage.xhtml";
 }

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Partager son album</title>
+    </h:head>
+    <h:body>
+    	<h:form>
+    	<h3>Grid Layout</h3>
+    	Partager l'album <h:outputText value="#{album.title}"></h:outputText>   avec les utilisateurs : 
+    	<br/>
+    	
+    	<p:selectManyCheckbox id="grid" value="#{partageController.selectedUsers}" layout="grid" columns="3">
+        <f:selectItems value="#{partageController.users}" var="user" itemLabel="#{user[1]} #{user[2]}" itemValue="#{user[0]}" />
+    	</p:selectManyCheckbox>
+    	<p:commandButton value="Partager" actionListener="#{partageController.validerPartage}" ajax="false">
+    	</p:commandButton>  	
+    	<p:commandButton value="Non-Ajax Submit" update="display" id="nonAjax" actionListener="#{partageController.validerPartage}" ajax="false" />
+    	
+    	</h:form>
+    </h:body>
+</html>

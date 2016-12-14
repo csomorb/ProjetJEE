@@ -17,7 +17,11 @@
     <p>
     	<h:outputText value="#{albumController.album.description}"> </h:outputText>
     </p>
-    
+    <h:form>
+    <h:commandLink action="#{partageController.partagerAlbum}" value="Partager l'abum">
+		<f:param name="idAlbum" value="#{albumController.album.id}" />
+	</h:commandLink>
+    </h:form>
     <ui:repeat var="image" value="#{albumController.listeImage}">
      <img src="#{image.getLocalfile()}" alt="s" class="minature-album"/> 
     </ui:repeat>

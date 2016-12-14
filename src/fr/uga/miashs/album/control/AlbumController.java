@@ -1,7 +1,9 @@
 package fr.uga.miashs.album.control;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
@@ -11,8 +13,10 @@ import javax.inject.Named;
 import javax.servlet.http.Part;
 
 import fr.uga.miashs.album.model.Album;
+import fr.uga.miashs.album.model.AppUser;
 import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
+import fr.uga.miashs.album.service.AppUserService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
@@ -29,10 +33,15 @@ public class AlbumController {
 	
 	@Inject
 	private PictureService pictureService;
+	
+	@Inject 
+	private AppUserService appUserService;
 
 	private Part zip;
 	
 	private Album album;
+	
+	
 	
 	private List<Picture> listeImage;
 	
