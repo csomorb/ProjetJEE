@@ -6,9 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,14 +18,9 @@ import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
 
-//
-//@RequestScoped
-
-//
-//@ViewScoped
 @Named
 @RequestScoped
-public class PartageController {
+public class Partage2Controller {
 	
 	@Inject
 	private AlbumService albumService;

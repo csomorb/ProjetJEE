@@ -43,8 +43,28 @@ public class AppUserService extends JpaService<Long,AppUser> {
 		}
 	}
 	
+	public AppUser userWithId(Long id){
+		Query query = getEm().createNamedQuery("AppUser.userWithId");
+		query.setParameter("userId", id);
+		try {
+			return (AppUser) query.getSingleResult();
+		}
+		catch (NoResultException e) {
+			e.printStackTrace();;
+		}
+		return null;
+	}
+	
 	public List<AppUser> listUsers() {
 		 Query query = getEm().createNamedQuery("AppUser.findAll");
 		 return query.getResultList();
 	}
+	
+	public List<AppUser> listUserWithout(Long userID){
+		Query query = getEm().createNamedQuery("AppUser.findUserWithout");
+		query.setParameter("userID", userID);
+		
+		return query.getResultList();	
+	}
+	
 }

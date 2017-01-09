@@ -83,6 +83,10 @@ public class Album {
 	public Set<Picture> getPictures() {
 		return pictures;
 	}
+	
+	public void addUserShared(AppUser user){
+		this.sharedWith.add(user);
+	}
 	/*
 	public void setPictures(Set<Picture> p) {
 		this.pictures = p;

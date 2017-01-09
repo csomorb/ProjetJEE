@@ -25,12 +25,13 @@ import javax.servlet.http.Part;
 public class AlbumService extends JpaService<Long,Album> {
 
 	public void create(Album a) throws ServiceException {
-		a.setOwner(getEm().merge(getEm().merge( a.getOwner())));
-		
-		
-	//	a.setTitle(title);
-		
+		a.setOwner(getEm().merge(getEm().merge( a.getOwner())));		
 		super.create(a);
+	}
+	
+	public Album update(Album a) {
+		super.update(a);
+		return a;
 	}
 	
 	AlbumService(){
@@ -54,7 +55,8 @@ public class AlbumService extends JpaService<Long,Album> {
 		a.setOwner(getEm().merge(getEm().merge( a.getOwner())));
 		System.out.println("phase1");
 		System.out.println(zip.getSize());
-		Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("directory"));
+		Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/img/"));
+	//	Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("directory"));
 	//	Path utilPath = rootDir.resolve(a.getOwner().getFirstname() +" " + a.getOwner().getLastname() );
 		Path utilPath = rootDir.resolve( Long.toString(a.getOwner().getId()) );
 	//	Path albPath = utilPath.resolve(a.getTitle() );

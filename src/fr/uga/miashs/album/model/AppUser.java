@@ -20,7 +20,12 @@ import javax.validation.constraints.Pattern;
     @NamedQuery(name="AppUser.findAll",
                 query="SELECT u FROM AppUser u"),
     @NamedQuery(name="AppUser.login",
-    query="SELECT u FROM AppUser u WHERE u.email=:email AND u.password=:password")
+    query="SELECT u FROM AppUser u WHERE u.email=:email AND u.password=:password"),
+    @NamedQuery(name="AppUser.findUserWithout",
+    query="SELECT u FROM AppUser u WHERE u.id <> :userID"),
+    @NamedQuery(name="AppUser.userWithId",
+    query="SELECT u FROM AppUser u WHERE u.id=:userID")
+    
 })
 @Table(uniqueConstraints=@UniqueConstraint(columnNames="email"))
 public class AppUser {
