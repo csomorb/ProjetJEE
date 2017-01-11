@@ -84,8 +84,16 @@ public class Album {
 		return pictures;
 	}
 	
-	public void addUserShared(AppUser user){
+	
+	public void setSharedWith(AppUser user){
 		this.sharedWith.add(user);
+		for ( AppUser usert : sharedWith ) {
+			 System.out.println("----------liste-utilisateur--------" + usert.getFirstname() + usert.getLastname());	
+		}
+	}
+	
+	public void addUserShared(AppUser user){
+		this.setSharedWith(user);
 		for ( AppUser usert : sharedWith ) {
 			 System.out.println("----------liste-utilisateur--------" + usert.getFirstname() + usert.getLastname());	
 		}
