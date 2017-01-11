@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import fr.uga.miashs.album.model.Picture;
+import fr.uga.miashs.album.service.PictureAnnotationService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
@@ -20,6 +21,9 @@ public class taggingController {
 	private PictureService pictureService;
 	
 	private Picture picture;
+	
+	@Inject
+	private PictureAnnotationService pictureAnnotationService;
 	
 	public Picture getPicture(){
 		return this.picture;
@@ -38,7 +42,7 @@ public class taggingController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		pictureAnnotationService.test();
 		return Pages.tag;
 	}
 }

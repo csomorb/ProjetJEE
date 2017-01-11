@@ -8,7 +8,16 @@
         <title>Taguer la photo</title>
     </h:head>
     <h:body>
-        ggg
+        <h2> Tagger la photo : </h2>
         #{taggingController.picture.title} #{taggingController.picture.uri}
+        <img src="#{taggingController.picture.getLocalfile()}" alt="s" class="minature-album"/> 
+        
+        Ou la photo a été prise :  <br/>
+        
+        Quand la photo a été prise :  <br/>
+        
+        Avec qui la photo a été prise : <br/>
+        
+        Ce qu'on trouve sure la photo : <br/>
     </h:body>
 </html>

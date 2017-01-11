@@ -8,6 +8,6 @@ public interface GenericService<K, V> {
 	public void deleteById(K id) throws ServiceException;
 	
 	
-	// essai update
+	// pour l'update update
 	public V update(V v) throws ServiceException;
 }
