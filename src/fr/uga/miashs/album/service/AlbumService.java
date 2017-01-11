@@ -85,6 +85,20 @@ public class AlbumService extends JpaService<Long,Album> {
 		return query.getResultList();
 	}
 	
+	public List<Album> listAlbumSharedith(AppUser u) throws ServiceException {
+		Query query = getEm().createNamedQuery("Album.findAllNotOwned");
+		query.setParameter("owner", getEm().merge(u));
+		List<Album> listeNotOwned = query.getResultList();
+		ArrayList<Album> listeShared = new ArrayList<Album>();
+		for (Album a : listeNotOwned) {
+			if ( a.getSharedWith().contains(u) ) {
+				listeShared.add(a);
+			}
+		}
+		return listeShared;
+	}
+	
+	
 	public Album albumById(long id) throws ServiceException {
 		Query query = getEm().createNamedQuery("Album.findById");
 		query.setParameter("id", id);

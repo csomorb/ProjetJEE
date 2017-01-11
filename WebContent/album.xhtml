@@ -3,7 +3,8 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Album</title>
         <h:outputStylesheet library="css" name="album.css"  />
@@ -17,18 +18,26 @@
     <p>
     	<h:outputText value="#{albumController.album.description}"> </h:outputText>
     </p>
-    <h:form>
+    
+    <c:if test="#{albumController.isMine()}">
+    	<h:form>
     	<h:outputLabel for="descr" value="Nouveau description : " />
-		<h:inputText id="descr" value="#{albumController.album.description}" 
+		<h:inputText id="descr" value="#{albumController.description}" 
 			title="Nouvelle description"/>
     
-    	<h:commandButton action="#{albumController.changerDescription()}" value="Changer la description"/>
+    	<h:commandButton action="#{albumController.changerDescription()}" value="Changer la description">
+    	   <f:param name="idAlbum" value="#{albumController.album.id}" />
+    	</h:commandButton>
+    	
     </h:form>
-    <h:form>
-    <h:commandLink action="#{partageController.partagerAlbum()}" value="Partager l'abum">
-		<f:param name="idAlbum" value="#{albumController.album.id}" />
-	</h:commandLink>
-    </h:form>
+    
+    
+	    <h:form>
+		    <h:commandLink action="#{partageController.partagerAlbum()}" value="Partager l'abum">
+				<f:param name="idAlbum" value="#{albumController.album.id}" />
+			</h:commandLink>
+	    </h:form>
+    </c:if>
     <ui:repeat var="image" value="#{albumController.listeImage}">
      <img src="#{image.getLocalfile()}" alt="s" class="minature-album"/> 
      <h:form>

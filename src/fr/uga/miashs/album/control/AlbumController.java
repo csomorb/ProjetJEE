@@ -37,6 +37,16 @@ public class AlbumController {
 	
 	@Inject 
 	private AppUserService appUserService;
+	
+	private String description; 
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	private Part zip;
 	
@@ -83,6 +93,19 @@ public class AlbumController {
 		return null;
 	}
 	
+	public List<Album> getListAlbumShareWdithCurrentUser(){
+		try {
+			return albumService.listAlbumSharedith(appUserSession.getConnectedUser());
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public boolean isMine(){
+		return album.getOwner().getId() == appUserSession.getConnectedUser().getId();
+	}
+	
 	public List<Picture> listPictureAlbum(){
 		try {
 			return pictureService.listPictureAlbum(album);
@@ -99,7 +122,7 @@ public class AlbumController {
 		String idAlbum = params.get("idAlbum");
 		album = getAlbumById(idAlbum);
 		this.listeImage = listPictureAlbum();
-		
+		this.description = album.getDescription();
 		return Pages.album;
 	}
 	
@@ -108,6 +131,9 @@ public class AlbumController {
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String idAlbum = params.get("idAlbum");
 		album = getAlbumById(idAlbum);
+		
+		album.setDescription(this.description);
+		albumService.update(album);
 		
 		return Pages.album;
 	}
