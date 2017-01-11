@@ -33,6 +33,14 @@ public class PictureService extends JpaService<Long,Picture>{
 		return query.getResultList();
 	}
 	
+	
+	public Picture pictureById(long id) throws ServiceException {
+		Query query = getEm().createNamedQuery("Picture.findById");
+		query.setParameter("id", id);
+		return (Picture) query.getSingleResult();
+		
+	}
+	
 	public List<Picture> getListPicture() throws ServiceException {
 		//La requete est définie dans la classe Picture grâce à une annotation
 		Query query = getEm().createNamedQuery("Picture.findAllPicture");

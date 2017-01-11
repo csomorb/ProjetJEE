@@ -1,10 +1,12 @@
 package fr.uga.miashs.album.control;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -23,12 +25,18 @@ import fr.uga.miashs.album.util.Pages;
 //
 //@RequestScoped
 
-//
+//@SessionScoped
+//@ViewScoped
 //@ViewScoped
 @Named
 @RequestScoped
-public class PartageController {
+public class PartageController  implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Inject
 	private AlbumService albumService;
 	
@@ -51,6 +59,15 @@ public class PartageController {
 		this.album = album;
 	}
 	
+	@PostConstruct
+	public void init() {
+		System.out.println("postconstruct 2");
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String idAlbum = params.get("idAlbum");
+		album = getAlbumById(idAlbum);
+		initialiserListeUser();
+    }
+	
 	public String partagerAlbum(){
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String idAlbum = params.get("idAlbum");
@@ -63,21 +80,30 @@ public class PartageController {
 	public String modifierPartage() {
 		System.out.println("mise a jour");
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String idAlbum = params.get("idAlbum");
+		String idAlbum = params.get("idAlbum"); 
+		String actionPartage = params.get("action_partage");
+		System.out.println(idAlbum);
 		Long idUser = Long.parseLong(params.get("idUser"));
 		album = getAlbumById(idAlbum);
+		System.out.println(idUser);
 		AppUser userToModify;
 		try {
 			userToModify = getUserById(idUser);
-			album.addUserShared(userToModify);
-			
+			// si on partage l'album
+			if ( actionPartage.equalsIgnoreCase("partager")) {
+				album.addUserShared(userToModify);
+				System.out.println("Ajout du partage avec " + userToModify.getFirstname() + userToModify.getLastname());
+			}
+			else {
+				album.removeUserShared(userToModify);
+				System.out.println("Supression du partage avec " + userToModify.getFirstname() + userToModify.getLastname());
+			}			
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		albumService.update(album);
+				
+		this.album = albumService.update(album);
 		System.out.println("mise a jour");
 		initialiserListeUser();	
 		return Pages.partage;
@@ -87,11 +113,15 @@ public class PartageController {
 		// récupération de tous les utilisateurs sans l'utilisateur courrant
 		List<AppUser> listUsers = new ArrayList<AppUser>();
 		List<AppUser> listPartage = new ArrayList<AppUser>();
+		// liste des utilisateurs partagés
+		
 		for ( AppUser user : appUserService.listUserWithout(album.getOwner().getId()) ) {
 			 listUsers.add(user);
+			 System.out.println("----------user without current user" + user.getFirstname() + user.getLastname());			 
 		}
-		for ( AppUser user : listPartage ) {
+		for ( AppUser user : album.getSharedWith() ) {
 			 listPartage.add(user);
+			 System.out.println("----------user shared with current user" + user.getFirstname() + user.getLastname());	
 		}
 		listUsers.removeAll(listPartage);
 		selectedUsers = new HashMap<AppUser,String>();
@@ -101,7 +131,7 @@ public class PartageController {
 		}
 		 
 		for ( AppUser user : listPartage ) {
-			selectedUsers.put(user, "ne pas abboner");
+			selectedUsers.put(user, "annuler le partage");
 			System.out.println(user.getLastname() + "shar");
 		}
 	}

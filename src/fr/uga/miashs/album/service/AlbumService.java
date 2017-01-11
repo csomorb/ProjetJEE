@@ -31,6 +31,8 @@ public class AlbumService extends JpaService<Long,Album> {
 	
 	public Album update(Album a) {
 		super.update(a);
+		System.out.println("MISE A JOUR ALBUM EN THEORIE" + a.getSharedWith().size());
+		
 		return a;
 	}
 	

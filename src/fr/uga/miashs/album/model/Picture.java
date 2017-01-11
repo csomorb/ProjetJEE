@@ -19,7 +19,9 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name="Picture.findAlbum",
                 query="SELECT p FROM Picture p WHERE p.album=:album"),
     @NamedQuery(name="Picture.findAllPicure",
-    			query="SELECT * FROM Picture")
+    			query="SELECT * FROM Picture"),
+    @NamedQuery(name="Picture.findById",
+				query="SELECT p FROM Picture p WHERE p.id=:id")
 })
 public class Picture {
 

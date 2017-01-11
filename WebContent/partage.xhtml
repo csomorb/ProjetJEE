@@ -4,23 +4,37 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Partager son album</title>
     </h:head>
     <h:body>
-    	<h:form>
+    	
     	<h3>Grid Layout</h3>
-    	Partager l'album <h:outputText value="#{album.title}"></h:outputText>   avec les utilisateurs : 
+    	Partager l'album <h:outputText value="#{partageController.album.title}"></h:outputText>   avec les utilisateurs : 
     	<br/>
     	
-    	<p:selectManyCheckbox id="grid" value="#{partageController.selectedUsers}" layout="grid" columns="3">
-        <f:selectItems value="#{partageController.users}" var="user" itemLabel="#{user[1]} #{user[2]}" itemValue="#{user[0]}" />
-    	</p:selectManyCheckbox>
-    	<p:commandButton value="Partager" actionListener="#{partageController.validerPartage}" ajax="false">
-    	</p:commandButton>  	
-    	<p:commandButton value="Non-Ajax Submit" update="display" id="nonAjax" actionListener="#{partageController.validerPartage}" ajax="false" />
+
+			<c:forEach var="entry" items="#{partageController.selectedUsers.entrySet().toArray()}" >
+		
+			<h:outputText value="#{entry.key.firstname}"/> #{entry.key.id} #{entry.key.lastname} 
+			<h:form>
+			<h:commandButton action="#{partageController.modifierPartage()}" value="#{entry.value}">
+				<f:param name="idAlbum" value="#{partageController.album.id}" />
+				<f:param name="idUser" value="#{entry.key.id}" />
+				<f:param name="action_partage" value="#{entry.value}" />
+			</h:commandButton>
+			</h:form>
+	</c:forEach>
+
+			<c:forEach var="counter" begin="1" end="10">
+ <h:outputText value="${counter}"/>
+</c:forEach>
+
+
+		
+
     	
-    	</h:form>
     </h:body>
 </html>

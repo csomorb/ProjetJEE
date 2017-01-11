@@ -60,9 +60,9 @@ public class AppUserService extends JpaService<Long,AppUser> {
 		 return query.getResultList();
 	}
 	
-	public List<AppUser> listUserWithout(Long userID){
+	public List<AppUser> listUserWithout(Long userId){
 		Query query = getEm().createNamedQuery("AppUser.findUserWithout");
-		query.setParameter("userID", userID);
+		query.setParameter("userId", userId);
 		
 		return query.getResultList();	
 	}

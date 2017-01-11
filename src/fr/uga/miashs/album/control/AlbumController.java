@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
@@ -41,7 +42,11 @@ public class AlbumController {
 	
 	private Album album;
 	
-	
+	@PostConstruct
+	public void init() {
+		System.out.println("postconstruct");
+        listeImage = listPictureAlbum();
+    }
 	
 	private List<Picture> listeImage;
 	
@@ -94,6 +99,15 @@ public class AlbumController {
 		String idAlbum = params.get("idAlbum");
 		album = getAlbumById(idAlbum);
 		this.listeImage = listPictureAlbum();
+		
+		return Pages.album;
+	}
+	
+	public String changerDescription(){
+		this.listeImage = listPictureAlbum();
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String idAlbum = params.get("idAlbum");
+		album = getAlbumById(idAlbum);
 		
 		return Pages.album;
 	}

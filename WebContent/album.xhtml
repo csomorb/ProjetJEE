@@ -18,15 +18,64 @@
     	<h:outputText value="#{albumController.album.description}"> </h:outputText>
     </p>
     <h:form>
-    <h:commandLink action="#{partageController.partagerAlbum}" value="Partager l'abum">
+    	<h:outputLabel for="descr" value="Nouveau description : " />
+		<h:inputText id="descr" value="#{albumController.album.description}" 
+			title="Nouvelle description"/>
+    
+    	<h:commandButton action="#{albumController.changerDescription()}" value="Changer la description"/>
+    </h:form>
+    <h:form>
+    <h:commandLink action="#{partageController.partagerAlbum()}" value="Partager l'abum">
 		<f:param name="idAlbum" value="#{albumController.album.id}" />
 	</h:commandLink>
     </h:form>
     <ui:repeat var="image" value="#{albumController.listeImage}">
      <img src="#{image.getLocalfile()}" alt="s" class="minature-album"/> 
+     <h:form>
+    <h:commandLink action="#{taggingController.tagPhoto}" value="photo">
+		<f:param name="photoId" value="#{image.id}" />
+	</h:commandLink>
+	</h:form>
+	
+	
+	
+	
     </ui:repeat>
-    
-    
-    
+-----------------------------------------------------------------------------------------<br/>
+<h:form >
+
+<h:dataTable value="#{albumController.listeImage}" var="alb" >
+   <h:column>    				
+     <f:facet name="header">Titre</f:facet>    				
+     <h:outputText value="#{alb.title}"/> 
+   </h:column>
+   <h:column>
+      <f:facet name="header">Id</f:facet>
+      <h:outputText value="#{alb.id}"/> 
+   </h:column>
+   <h:column>
+   	  <f:facet name="header">Lien de l'album</f:facet>	  
+      <h:commandButton action="#{taggingController.tagPhoto}" value="Tagger">
+		<f:param name="idAlbum" value="#{alb.id}" />
+	</h:commandButton> 
+	<h:commandLink action="#{taggingController.tagPhoto}" value="Tagger">
+		<f:param name="idAlbum" value="#{alb.id}" />
+	</h:commandLink>
+	
+	
+   	</h:column>  
+   
+   
+   <!-- 
+   <h:column>
+      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>
+   </h:column>
+   -->
+</h:dataTable>
+
+</h:form>
+
+
+
     </h:body>
 </html>

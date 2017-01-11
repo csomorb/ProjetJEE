@@ -19,6 +19,7 @@
     <param-value>Development</param-value>
   </context-param>
   
+  
   <!-- Directoire ou sauvegarder les photos -->
   <context-param>
     <param-name>directory</param-name>

@@ -24,9 +24,9 @@
    </h:column>
    <h:column>
    	  <f:facet name="header">Lien de l'album</f:facet>	  
-     <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher button">
+      <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher button">
 		<f:param name="idAlbum" value="#{alb.id}" />
-	</h:commandButton>
+	</h:commandButton> 
 	<h:commandLink action="#{albumController.afficherAlbum}" value="Afficher lien">
 		<f:param name="idAlbum" value="#{alb.id}" />
 	</h:commandLink>
@@ -41,30 +41,6 @@
    </h:column>
    -->
 </h:dataTable>
-
-<p:repeat value="#{albumController.listAlbumOwnedByCurrentUser}" var="alb">
-        <h:panelGrid columns="3" style="width:100%" columnClasses="details,commande,partage">
-            <p:outputPanel>
-                <h:panelGrid columns="2" cellpadding="5">
-                    <h:outputText value="Titre:" />
-                    <h:outputText value="#{alb.title}" style="font-weight: bold"/>
- 
-                    <h:outputText value="description:" />
-                    <h:outputText value="#{alb.description}" style="font-weight: bold"/>
-                </h:panelGrid>
-            </p:outputPanel>
-            
-            <p:outputPanel>
-                <h:panelGrid columns="1" cellpadding="5">
-                	<h:commandButton action="#{albumController.afficherAlbum}" value="Afficher button">
-						<f:param name="idAlbum" value="#{alb.id}" />
-					</h:commandButton>
-                </h:panelGrid>
-            </p:outputPanel>
-        </h:panelGrid>
-        <hr />
-    </p:repeat>
-
 
 </h:form>	
 <h:form >
