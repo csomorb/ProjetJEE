@@ -39,17 +39,19 @@
 	    </h:form>
     </c:if>
     <ui:repeat var="image" value="#{albumController.listeImage}">
-     <img src="#{image.getLocalfile()}" alt="s" class="minature-album"/> 
-     <h:form>
-    <h:commandLink action="#{taggingController.tagPhoto}" value="photo">
-		<f:param name="photoId" value="#{image.id}" />
-	</h:commandLink>
-	</h:form>
-	
-	
-	
-	
+     	<img src="#{image.getLocalfile()}" alt="s" class="minature-album"/> 
+     	<h:form>
+    		<h:commandLink action="#{taggingController.tagPhoto}" value="photo">
+				<f:param name="photoId" value="#{image.id}" />
+			</h:commandLink>
+			<h:commandLink action="#{albumController.deletePicture(image.id)}" value="supprimer">
+				<f:param name="photoId" value="#{image.id}" />
+				<f:param name="idAlbum" value="#{albumController.album.id}" />
+			</h:commandLink>
+			
+		</h:form>
     </ui:repeat>
+    
 -----------------------------------------------------------------------------------------<br/>
 <h:form >
 

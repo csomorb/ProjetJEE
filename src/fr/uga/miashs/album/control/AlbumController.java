@@ -130,11 +130,29 @@ public class AlbumController {
 		this.listeImage = listPictureAlbum();
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String idAlbum = params.get("idAlbum");
-		album = getAlbumById(idAlbum);
-		
+		album = getAlbumById(idAlbum);	
 		album.setDescription(this.description);
 		albumService.update(album);
-		
+		return Pages.album;
+	}
+	
+	public String deletePicture(Long id){
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String idAlbum = params.get("idAlbum");
+		album = getAlbumById(idAlbum);
+		Picture p;
+		try {
+			p = pictureService.pictureById(id);
+			album.removePicture(p);
+			albumService.update(album);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		pictureService.deletePictureById(id);
+		this.listeImage = listPictureAlbum();
+		this.description = album.getDescription();
+	
 		return Pages.album;
 	}
 	

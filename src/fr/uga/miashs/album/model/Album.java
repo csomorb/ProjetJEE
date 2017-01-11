@@ -108,6 +108,10 @@ public class Album {
 		}
 	}
 	
+	public void removePicture(Picture p){
+		this.pictures.remove(p);
+	}
+	
 	/*
 	public void setPictures(Set<Picture> p) {
 		this.pictures = p;

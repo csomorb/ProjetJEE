@@ -1,6 +1,12 @@
 package fr.uga.miashs.album.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +45,42 @@ public class PictureService extends JpaService<Long,Picture>{
 		query.setParameter("id", id);
 		return (Picture) query.getSingleResult();
 		
+	}
+	
+	public void deletePictureById(Long id) {
+		// supprimer du disque
+	/*	try {
+			Picture p = pictureById(id);
+			// construction du chemin
+			System.out.println("suppression du fichier " + p.getLocalfile() + " du disque dur");
+			File image = new File(p.getLocalfile());
+			image.delete();
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		try {
+			Picture p = pictureById(id);
+			System.out.println("suppression du fichier " + p.getLocalfile() + " du disque dur");
+			System.out.println("suppression du fichier " + p.getUri() + " du disque dur");
+			Path path = Paths.get(p.getLocalfile());
+			Path path2 = Paths.get(p.getUri());
+		    Files.delete(path2);
+		} catch (NoSuchFileException x) {
+		    System.err.format(" no such " + " file or directory");
+		} catch (DirectoryNotEmptyException x) {
+		    System.err.format("directory not empty");
+		} catch (IOException x) {
+		    // File permission problems are caught here.
+		    System.err.println(x);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		// supprimer de la bdd
+		super.deleteById(id);
 	}
 	
 	public List<Picture> getListPicture() throws ServiceException {
