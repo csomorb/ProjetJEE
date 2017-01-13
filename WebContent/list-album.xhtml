@@ -4,12 +4,86 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets"
-    xmlns:p="http://primefaces.org/ui">
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <f:view>
+<h:head>
+  <h:outputStylesheet library="css" name="bulma.css"  />
+</h:head>
 <h:body>
+	
+	
+	<nav class="nav">
+  <div class="nav-left">
+    <a class="nav-item">
+      <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo"/>
+    </a>
+  </div>
+
+  <div class="nav-center">
+    <a class="nav-item">
+      <span class="icon">
+        <i class="fa fa-github"></i>
+      </span>
+    </a>
+    <a class="nav-item">
+      <span class="icon">
+        <i class="fa fa-twitter"></i>
+      </span>
+    </a>
+  </div>
+
+  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
+  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
+  <span class="nav-toggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </span>
+
+  <!-- This "nav-menu" is hidden on mobile -->
+  <!-- Add the modifier "is-active" to display it on mobile -->
+  <div class="nav-right nav-menu">
+    <a class="nav-item">
+      Home
+    </a>
+    <a class="nav-item">
+      Documentation
+    </a>
+    <a class="nav-item">
+      Blog
+    </a>
+
+    <span class="nav-item">
+      <a class="button" >
+        <span class="icon">
+          <i class="fa fa-twitter"></i>
+        </span>
+        <span>Tweet</span>
+      </a>
+      <a class="button is-primary">
+        <span class="icon">
+          <i class="fa fa-download"></i>
+        </span>
+        <span>Download</span>
+      </a>
+    </span>
+  </div>
+</nav>
+	
+	
+	
 	<ui:include src="/WEB-INF/menu.xhtml" />
-	<h1>AlbumList</h1>
+	
+	
+	
+	
+	<h1>Mes albums</h1>
+	
+	<h:link value="Ajouter un album" outcome="add-album" />
+	
+<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() > 0 }">
 
 <h:form >
 
@@ -43,9 +117,13 @@
 </h:dataTable>
 
 </h:form>	
+</c:if>
+<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() == 0 }">
+  Vous n'avez pas encore d'album, vous pouvez en ajouter en cliquant sur le bouton ajouter un album. 
+</c:if>
 
 <h1>Albums partagés avec moi</h1>
-
+<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() > 0 }">
 <h:form >
 
 <h:dataTable value="#{albumController.listAlbumShareWdithCurrentUser}" var="alb" >
@@ -64,12 +142,15 @@
 	</h:commandButton> 	
    	</h:column>  
 </h:dataTable>
-
 </h:form>	
+</c:if>
+<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() == 0 }">
+	Les utilisateurs n'ont pas encore partagé d'album avec vous
+</c:if>
 <h:form >
 <h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
 </h:form>
-<h:link value="Ajouter un album" outcome="add-album" />
+
 </h:body>
 </f:view>
 </html>

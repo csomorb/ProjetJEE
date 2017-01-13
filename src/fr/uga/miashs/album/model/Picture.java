@@ -4,7 +4,7 @@ import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name="Picture.findAllPicure",
     			query="SELECT * FROM Picture"),
     @NamedQuery(name="Picture.findById",
-				query="SELECT p FROM Picture p WHERE p.id=:id")
+				query="SELECT p FROM Picture p WHERE p.id=:id"),
 })
 public class Picture {
 
@@ -29,7 +29,7 @@ public class Picture {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	private Album album;
 	
 	@NotNull

@@ -2,6 +2,7 @@ package fr.uga.miashs.album.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,10 +35,10 @@ public class Album {
 	private String description;
 	
 	@NotNull
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	private AppUser owner;
 	
-	@ManyToMany
+	@ManyToMany(cascade={CascadeType.PERSIST})
 	private Set<AppUser> sharedWith;
 	
 	@OneToMany(mappedBy="album")

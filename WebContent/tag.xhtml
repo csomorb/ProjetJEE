@@ -3,21 +3,43 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
     <h:head>
+    	<h:outputStylesheet library="css" name="album.css"  />
         <title>Taguer la photo</title>
     </h:head>
     <h:body>
-        <h2> Tagger la photo : </h2>
-        #{taggingController.picture.title} #{taggingController.picture.uri}
+        <h2> Taguer la photo : </h2>
         <img src="#{taggingController.picture.getLocalfile()}" alt="s" class="minature-album"/> 
         
+        
+        <h:form>
+        
         Ou la photo a été prise :  <br/>
+        
+
+		    <h:panelGrid columns="3" cellpadding="5">
+		        <h:outputLabel for="menu" value="Location:" />
+		        <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Lieux"
+		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		            <f:selectItems value="#{taggingController.listeLieu}" />
+		        </p:selectCheckboxMenu>
+		    </h:panelGrid>
+        
+        
         
         Quand la photo a été prise :  <br/>
         
         Avec qui la photo a été prise : <br/>
         
         Ce qu'on trouve sure la photo : <br/>
+        
+	    <h:commandButton action="#{taggingController.taguer()}" value="Annoter la photo">
+			<f:param name="photoId" value="#{taggingController.picture.id}" />
+		</h:commandButton> 
+        
+        </h:form>
+        
     </h:body>
 </html>

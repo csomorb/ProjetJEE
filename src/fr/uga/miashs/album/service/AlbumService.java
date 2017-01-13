@@ -40,6 +40,16 @@ public class AlbumService extends JpaService<Long,Album> {
 		this.pictureService = new PictureService();
 	}
 	
+	public void deletePicture(long id, Album album){
+		try {
+			pictureService.sup(id);
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	public List<AppUser> getNotSharedWith(Album a){
 		AppUserService ap = new AppUserService();

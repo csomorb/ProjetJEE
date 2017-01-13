@@ -119,6 +119,8 @@ public class PartageController  implements Serializable{
 			 listUsers.add(user);
 			 System.out.println("----------user without current user" + user.getFirstname() + user.getLastname());			 
 		}
+		
+		
 		for ( AppUser user : album.getSharedWith() ) {
 			 listPartage.add(user);
 			 System.out.println("----------user shared with current user" + user.getFirstname() + user.getLastname());	

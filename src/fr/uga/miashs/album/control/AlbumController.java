@@ -55,7 +55,17 @@ public class AlbumController {
 	@PostConstruct
 	public void init() {
 		System.out.println("postconstruct");
-        listeImage = listPictureAlbum();
+		
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String idAlbum = params.get("idAlbum");
+		
+		System.out.println(idAlbum + " id de l'album");
+		if (idAlbum != null)
+			album = getAlbumById(idAlbum);
+		
+		
+		if (album != null)
+			listeImage = listPictureAlbum();
     }
 	
 	private List<Picture> listeImage;
@@ -85,6 +95,7 @@ public class AlbumController {
 	
 	public List<Album> getListAlbumOwnedByCurrentUser() {
 		try {
+			System.out.println(appUserSession.getConnectedUser().getEmail() + " e mail");
 			return albumService.listAlbumOwnedBy(appUserSession.getConnectedUser());
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
@@ -103,11 +114,15 @@ public class AlbumController {
 	}
 	
 	public boolean isMine(){
+		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		String idAlbum = params.get("idAlbum");
+		album = getAlbumById(idAlbum);		
 		return album.getOwner().getId() == appUserSession.getConnectedUser().getId();
 	}
 	
 	public List<Picture> listPictureAlbum(){
 		try {
+			System.out.println(album.getTitle());
 			return pictureService.listPictureAlbum(album);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
@@ -137,21 +152,22 @@ public class AlbumController {
 	}
 	
 	public String deletePicture(Long id){
-		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-		String idAlbum = params.get("idAlbum");
-		album = getAlbumById(idAlbum);
+		//Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+	//	String idAlbum = params.get("idAlbum");
+	//	album = getAlbumById(idAlbum);
 		Picture p;
-		try {
-			p = pictureService.pictureById(id);
-			album.removePicture(p);
-			albumService.update(album);
-		} catch (ServiceException e) {
+	//	try {
+			pictureService.deleteById(id);
+			//p = pictureService.pictureById(id);
+		//	album.removePicture(p);
+			//albumService.deletePicture(id,album);
+	//	} catch (ServiceException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		pictureService.deletePictureById(id);
-		this.listeImage = listPictureAlbum();
-		this.description = album.getDescription();
+	//		e.printStackTrace();
+	//	}
+	//	pictureService.deletePictureById(id);
+		//this.listeImage = listPictureAlbum();
+		//this.description = album.getDescription();
 	
 		return Pages.album;
 	}

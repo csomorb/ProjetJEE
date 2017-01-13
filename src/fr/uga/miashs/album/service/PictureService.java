@@ -25,6 +25,7 @@ public class PictureService extends JpaService<Long,Picture>{
 		p.setAlbum(a);
 	//	System.out.println(p.getAlbum().getOwner().getEmail());
 		p.setTitle(filename);
+		System.out.println(filename + " nom du fichier ");
 		p.setLocalfile("resources/img/"+a.getOwner().getId()+"/"+a.getId()+"/"+ filename );
 		System.out.println("phase2"+pa.toString());
 		p.setUri(pa.toUri());
@@ -45,6 +46,14 @@ public class PictureService extends JpaService<Long,Picture>{
 		query.setParameter("id", id);
 		return (Picture) query.getSingleResult();
 		
+	}
+	
+	public void sup(long id) throws ServiceException {
+	//	Query query = getEm().createNamedQuery("Picture.deleteById");
+	//	query.setParameter("id", id);
+	//	query.executeUpdate();
+	//	return query.getSingleResult();
+		super.deleteById(id);
 	}
 	
 	public void deletePictureById(Long id) {
@@ -77,10 +86,15 @@ public class PictureService extends JpaService<Long,Picture>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		 try {
+			super.delete(this.pictureById(id));
+		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		// supprimer de la bdd
-		super.deleteById(id);
+		//super.deleteById(id);
 	}
 	
 	public List<Picture> getListPicture() throws ServiceException {
