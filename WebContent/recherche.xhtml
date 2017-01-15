@@ -8,6 +8,10 @@
         <title>Recherche</title>
     </h:head>
     <h:body>
+      
+      <ui:repeat var="image" value="#{rechercheController.pictureListe}">
+     	<h:graphicImage value="resources/img/#{image.getAlbum().getOwner().getId()}/#{image.getAlbum().getId()}/#{image.getTitle()}" class="minature-album" alt="image"/>
+    </ui:repeat>
         
     </h:body>
 </html>
