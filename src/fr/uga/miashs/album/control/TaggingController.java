@@ -1,6 +1,7 @@
 package fr.uga.miashs.album.control;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.PostConstruct;
@@ -30,10 +31,24 @@ public class TaggingController {
 	@PostConstruct
 	public void init(){
 		this.listeLieu = pictureAnnotationService.tousLesLieux();
+		this.listePersonne = pictureAnnotationService.tousLesPersonnes();
 	}	
 	
-	private ArrayList<String> selectedLieu;   
-    public ArrayList<String> getSelectedLieu() {
+	private ArrayList<String> selectedLieu; 
+	
+	private ArrayList<String> selectedPersonne;
+	
+	private Date date;
+	
+    public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public ArrayList<String> getSelectedLieu() {
 		return selectedLieu;
 	}
 
@@ -51,6 +66,24 @@ public class TaggingController {
 
 	private ArrayList<String> listeLieu;
 	
+	private ArrayList<String> listePersonne;
+	
+	public ArrayList<String> getSelectedPersonne() {
+		return selectedPersonne;
+	}
+
+	public void setSelectedPersonne(ArrayList<String> selectedPersonne) {
+		this.selectedPersonne = selectedPersonne;
+	}
+
+	public ArrayList<String> getListePersonne() {
+		return listePersonne;
+	}
+
+	public void setListePersonne(ArrayList<String> listePersonne) {
+		this.listePersonne = listePersonne;
+	}
+
 	public Picture getPicture(){
 		return this.picture;
 	}
@@ -69,14 +102,41 @@ public class TaggingController {
 			e.printStackTrace();
 		}
 		
-		System.out.println(this.selectedLieu.size() + " taille selected lieu " );
 		//l'utilisateur a sélectionné des lieux à ajouter à la photo
 		if (this.selectedLieu.size() > 0 ) {
 			for (String lieu  : selectedLieu ){
 				pictureAnnotationService.insertLieu(picture.getUri(), lieu);
 			}
 		}
-	//	pictureAnnotationService.test();
+		
+		if (this.date != null){ 
+			String mois = date.toString().substring(4, 7);
+			String m;
+			switch (mois) {
+				case "Jan" : m = "01"; break;
+				case "Feb" : m = "02"; break;
+				case "Mar" : m = "03"; break;
+				case "Apr" : m = "04"; break;
+				case "May" : m = "05"; break;
+				case "Jun" : m = "06"; break;
+				case "Jul" : m = "07"; break;
+				case "Aug" : m = "08"; break;
+				case "Sep" : m = "09"; break;
+				case "Oct" : m = "10"; break;
+				case "Nov" : m = "11"; break;
+				default :  m = "12"; break;
+			}
+			String date_s = date.toString().substring(24)+"-"+m+"-"+date.toString().substring(8,10)+"T"+date.toString().substring(11, 19);
+			System.out.println(date_s);
+			pictureAnnotationService.insertDatePriseDeVue(picture.getUri(), date_s);
+		}
+		//l'utilisateur a sélectionné des personnes à ajouter à la photo
+		if (this.selectedPersonne.size() > 0 ) {
+			for (String per  : selectedPersonne ){
+				pictureAnnotationService.insertPersonne(picture.getUri(), per);
+			}
+		}
+				
 		return Pages.tag;
 	}
 	

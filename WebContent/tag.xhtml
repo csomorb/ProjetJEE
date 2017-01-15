@@ -16,12 +16,11 @@
         
         <h:form>
         
-        Ou la photo a été prise :  <br/>
         
 
 		    <h:panelGrid columns="3" cellpadding="5">
-		        <h:outputLabel for="menu" value="Location:" />
-		        <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Lieux"
+		        <h:outputLabel for="menu" value="Ou la photo a été  prise:" />
+		        <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Sélectionez un lieu"
 		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
 		            <f:selectItems value="#{taggingController.listeLieu}" />
 		        </p:selectCheckboxMenu>
@@ -29,9 +28,19 @@
         
         
         
-        Quand la photo a été prise :  <br/>
+        Quand la photo a été prise :  
+        <h:panelGrid columns="2" cellpadding="5">
+        <p:outputLabel for="inline" value="Inline:" />
+        <p:calendar id="inline" value="#{taggingController.date}" mode="inline" />
+        </h:panelGrid>
         
-        Avec qui la photo a été prise : <br/>
+        <h:panelGrid columns="3" cellpadding="5">
+		        <h:outputLabel for="menu2" value="Avec qui la photo a été prise :" />
+		        <p:selectCheckboxMenu id="menu2" value="#{taggingController.selectedPersonne}" label="Sélectionez les personnes"
+		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		            <f:selectItems value="#{taggingController.listePersonne}" />
+		        </p:selectCheckboxMenu>
+		    </h:panelGrid>
         
         Ce qu'on trouve sure la photo : <br/>
         
