@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
     			query="SELECT * FROM Picture"),
     @NamedQuery(name="Picture.findById",
 				query="SELECT p FROM Picture p WHERE p.id=:id"),
+    @NamedQuery(name="Picture.findByURI",
+				query="SELECT p FROM Picture p WHERE p.uri=:uri"),
 })
 public class Picture {
 
