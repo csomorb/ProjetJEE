@@ -25,6 +25,8 @@
 		<h:inputText id="descr" value="#{albumController.description}" 
 			title="Nouvelle description"/>
     
+   
+    
     	<h:commandButton action="#{albumController.changerDescription()}" value="Changer la description">
     	   <f:param name="idAlbum" value="#{albumController.album.id}" />
     	</h:commandButton>

@@ -18,17 +18,21 @@ import fr.uga.miashs.album.model.Picture;
 
 public class PictureService extends JpaService<Long,Picture>{
 
+	PictureAnnotationService pictureAnnotationService;
+	
+	PictureService(){
+		this.pictureAnnotationService = new PictureAnnotationService();
+	}
+	
 	public Picture create(Picture p, Album a, Path pa, String filename) throws ServiceException {
 		
-	//	p.setAlbum(getEm().merge(getEm().merge(p.getAlbum())));
-		
 		p.setAlbum(a);
-	//	System.out.println(p.getAlbum().getOwner().getEmail());
 		p.setTitle(filename);
 		System.out.println(filename + " nom du fichier ");
 		p.setLocalfile("resources/img/"+a.getOwner().getId()+"/"+a.getId()+"/"+ filename );
 		System.out.println("phase2"+pa.toString());
 		p.setUri(pa.toUri());
+		pictureAnnotationService.insertPicture(pa.toUri()); 
 		super.create(p);
 		return p;
 	}

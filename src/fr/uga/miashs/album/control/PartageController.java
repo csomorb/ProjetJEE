@@ -22,12 +22,6 @@ import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
 
-//
-//@RequestScoped
-
-//@SessionScoped
-//@ViewScoped
-//@ViewScoped
 @Named
 @RequestScoped
 public class PartageController  implements Serializable{
