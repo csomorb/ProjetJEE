@@ -32,6 +32,7 @@ public class TaggingController {
 	public void init(){
 		this.listeLieu = pictureAnnotationService.tousLesLieux();
 		this.listePersonne = pictureAnnotationService.tousLesPersonnes();
+		this.listeObjet = pictureAnnotationService.tousLesObjets();
 	}	
 	
 	private ArrayList<String> selectedLieu; 
@@ -39,54 +40,16 @@ public class TaggingController {
 	private ArrayList<String> selectedPersonne;
 	
 	private Date date;
+
+	private ArrayList<String> selectedObjet;
 	
-    public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public ArrayList<String> getSelectedLieu() {
-		return selectedLieu;
-	}
-
-	public void setSelectedLieu(ArrayList<String> selectedLieu) {
-		this.selectedLieu = selectedLieu;
-	}
-
-	public ArrayList<String> getListeLieu() {
-		return listeLieu;
-	}
-
-	public void setListeLieu(ArrayList<String> listeLieu) {
-		this.listeLieu = listeLieu;
-	}
-
+	private ArrayList<String> listeObjet;
+	
 	private ArrayList<String> listeLieu;
 	
 	private ArrayList<String> listePersonne;
 	
-	public ArrayList<String> getSelectedPersonne() {
-		return selectedPersonne;
-	}
-
-	public void setSelectedPersonne(ArrayList<String> selectedPersonne) {
-		this.selectedPersonne = selectedPersonne;
-	}
-
-	public ArrayList<String> getListePersonne() {
-		return listePersonne;
-	}
-
-	public void setListePersonne(ArrayList<String> listePersonne) {
-		this.listePersonne = listePersonne;
-	}
-
-	public Picture getPicture(){
-		return this.picture;
-	}
+	
 	
 	public String taguer(){
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -136,6 +99,13 @@ public class TaggingController {
 				pictureAnnotationService.insertPersonne(picture.getUri(), per);
 			}
 		}
+		
+		//l'utilisateur a sélectionné des objets à ajouter à la photo
+		if (this.selectedObjet.size() > 0 ){
+			for (String ob  : selectedObjet ){
+				pictureAnnotationService.insertPersonne(picture.getUri(), ob);
+			} 
+		}
 				
 		return Pages.tag;
 	}
@@ -153,9 +123,68 @@ public class TaggingController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-	//	pictureAnnotationService.test();
 		return Pages.tag;
+	}
+	
+	// getters et setters
+	
+    public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	public ArrayList<String> getSelectedLieu() {
+		return selectedLieu;
+	}
+
+	public void setSelectedLieu(ArrayList<String> selectedLieu) {
+		this.selectedLieu = selectedLieu;
+	}
+
+	public ArrayList<String> getListeLieu() {
+		return listeLieu;
+	}
+
+	public void setListeLieu(ArrayList<String> listeLieu) {
+		this.listeLieu = listeLieu;
+	}
+	
+	public ArrayList<String> getSelectedPersonne() {
+		return selectedPersonne;
+	}
+
+	public void setSelectedPersonne(ArrayList<String> selectedPersonne) {
+		this.selectedPersonne = selectedPersonne;
+	}
+
+	public ArrayList<String> getListePersonne() {
+		return listePersonne;
+	}
+
+	public void setListePersonne(ArrayList<String> listePersonne) {
+		this.listePersonne = listePersonne;
+	}
+
+	public ArrayList<String> getSelectedObjet() {
+		return selectedObjet;
+	}
+
+	public void setSelectedObjet(ArrayList<String> selectedObjet) {
+		this.selectedObjet = selectedObjet;
+	}
+
+	public ArrayList<String> getListeObjet() {
+		return listeObjet;
+	}
+
+	public void setListeObjet(ArrayList<String> listeObjet) {
+		this.listeObjet = listeObjet;
+	}
+
+	public Picture getPicture(){
+		return this.picture;
 	}
 }

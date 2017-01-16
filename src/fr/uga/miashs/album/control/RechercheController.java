@@ -34,6 +34,10 @@ public class RechercheController {
 	
 	private ArrayList<String> listeLieu;
 	
+    private ArrayList<String> selectedObjet;
+
+	private ArrayList<String> listeObjet;
+	
 	@PostConstruct
 	public void init(){
 		rechercheArea = "PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> " +
@@ -47,6 +51,7 @@ public class RechercheController {
                                        " } ";
 		this.listePersonne = pictureAnnotationService.tousLesPersonnes();
 		this.listeLieu = pictureAnnotationService.tousLesLieux();
+		this.listeObjet = pictureAnnotationService.tousLesObjets();
 	}
 	
 	public String rech(){
@@ -56,7 +61,7 @@ public class RechercheController {
 	
 	public String rechercherPersonnesEtLieu(){
 		
-		ArrayList<String> liste = this.pictureAnnotationService.recherchePersonnesEtLieu(selectedPersonne,selectedLieu);
+		ArrayList<String> liste = this.pictureAnnotationService.recherchePersonnesEtLieu(selectedPersonne,selectedLieu,selectedObjet);
 		this.pictureListe = pictureService.listPictureURIList(liste);
 		return Pages.recherche;
 	}
@@ -117,6 +122,22 @@ public class RechercheController {
 
 	public void setListeLieu(ArrayList<String> listeLieu) {
 		this.listeLieu = listeLieu;
+	}
+	
+	public ArrayList<String> getSelectedObjet() {
+		return selectedObjet;
+	}
+
+	public void setSelectedObjet(ArrayList<String> selectedObjet) {
+		this.selectedObjet = selectedObjet;
+	}
+
+	public ArrayList<String> getListeObjet() {
+		return listeObjet;
+	}
+
+	public void setListeObjet(ArrayList<String> listeObjet) {
+		this.listeObjet = listeObjet;
 	}
 	
 	

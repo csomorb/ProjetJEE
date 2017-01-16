@@ -29,6 +29,17 @@ public class PictureAnnotationService {
 		up.execute();
 	}
 	
+	
+	// ajoute l'objet présent la photo
+		public void insertObjet(URI pURI, String objet){
+			String str = objet.replace(' ', '_');
+			String req = "{<" + pURI.toString() + "> <http://www.ILoveWebSemantic.com/photoApp#objetPresent> <http://www.ILoveWebSemantic.com/photoApp#"+str+"> .}";
+			UpdateRequest request = UpdateFactory.create("PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>"+
+					"INSERT DATA" + req );
+			UpdateProcessor up = UpdateExecutionFactory.createRemote(request, "http://localhost:3030/ALBUM/update");
+			up.execute();
+		}
+	
 	// ajoute la date de la prise de vue de la photo     
 	public void insertDatePriseDeVue(URI pURI, String date_s){
 		String req = "{<" + pURI.toString() + "> <http://www.ILoveWebSemantic.com/photoApp#datePriseDeVue> \""+date_s+"\"^^xsd:dateTime .}";
@@ -68,6 +79,27 @@ public class PictureAnnotationService {
 		  System.out.println("Fin requete : ");
 		return liste;
 	}
+	
+	// retourne une liste de tous les objets
+		public ArrayList<String> tousLesObjets(){
+			ArrayList<String> liste = new ArrayList<String>();
+			Query query = QueryFactory.create("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?subject ?predicate ?object WHERE {  ?subject a <http://www.ILoveWebSemantic.com/photoApp#Objet> }");
+			  try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
+				System.out.println("Execution requete de la liste des objets: ");
+			    ResultSet results = qexec.execSelect() ;
+			    for ( ; results.hasNext() ; )
+			    {
+			      QuerySolution soln = results.nextSolution() ;
+			      RDFNode x = soln.get("subject") ;
+			      if (x.toString().contains("http://www.ILoveWebSemantic.com/photoApp")) {
+			    	  String str = x.toString().substring(41).replace('_',' ');
+			    	  liste.add(str);
+			      }
+			    }
+			  }
+			  System.out.println("Fin requete : ");
+			return liste;
+		}
 	
 	// retourne une liste de tous les personnes
 		public ArrayList<String> tousLesPersonnes(){
@@ -110,8 +142,8 @@ public class PictureAnnotationService {
 			return liste;
 		}
 		
-		// retourne la liste des images des personnes et de leiux de la requette
-		public ArrayList<String> recherchePersonnesEtLieu(ArrayList<String> selectedPersonne, ArrayList<String> selectedLieu){
+		// retourne la liste des images des personnes, des objets et de lieux de la requette
+		public ArrayList<String> recherchePersonnesEtLieu(ArrayList<String> selectedPersonne, ArrayList<String> selectedLieu, ArrayList<String> selectedObjet){
 			ArrayList<String> liste = new ArrayList<String>();
 			String req = " SELECT ?subject ?predicate ?object WHERE {  ";
 			for (String st : selectedPersonne){
@@ -121,6 +153,10 @@ public class PictureAnnotationService {
 			for (String st : selectedLieu){
 				String str = st.replace(' ', '_');
 				req+= " ?subject <http://www.ILoveWebSemantic.com/photoApp#photoPriseA> <http://www.ILoveWebSemantic.com/photoApp#"+str+ "> . ";
+			}
+			for (String st : selectedObjet){
+				String str = st.replace(' ', '_');
+				req+= " ?subject <http://www.ILoveWebSemantic.com/photoApp#objetPresent> <http://www.ILoveWebSemantic.com/photoApp#"+str+ "> . ";
 			}
 			req += " } ";	
 			System.out.println(req);

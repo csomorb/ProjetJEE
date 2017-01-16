@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name="Album.findAllOwned",
                 query="SELECT a FROM Album a WHERE a.owner=:owner"),
     @NamedQuery(name="Album.findById",
-    			query="SELECT a FROM Album a WHERE  a.id=:id"), // rajouter shared ith ou oned by pour la sécu
+    			query="SELECT a FROM Album a WHERE  a.id=:id"), 
     @NamedQuery(name="Album.findAllNotOwned",
                 query="SELECT a FROM Album a WHERE a.owner <>:owner"),
 })
