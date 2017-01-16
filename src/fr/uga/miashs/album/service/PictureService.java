@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import javax.inject.Inject;
 import javax.persistence.Query;
 
+import fr.uga.miashs.album.control.AppUserSession;
 import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.AppUser;
 import fr.uga.miashs.album.model.Picture;
@@ -46,20 +48,29 @@ public class PictureService extends JpaService<Long,Picture>{
 		return query.getResultList();
 	}
 	
+	@Inject
+	private AppUserSession appUserSession;
+	
 	public ArrayList<Picture> listPictureURIList(ArrayList<String> liste){
-		ArrayList<Picture> list = new ArrayList<Picture>();
-		for (String str : liste){
-			System.out.println("recherche de" + str);
-			Query query = getEm().createNamedQuery("Picture.findByURI");
-			URI uri = URI.create(str);
-			System.out.println(uri.toString());
-			query.setParameter("uri", uri);
-			Picture p = (Picture) query.getSingleResult();
-			System.out.println(p.getLocalfile() + "trouve");
-			list.add(p);
+		List<Picture> list;
+		Query query = getEm().createNamedQuery("Picture.findAllPicure");
+		list = (List<Picture>) query.getResultList();
+		ArrayList<Picture> lister = new ArrayList<Picture>();	 
+		for (Picture p : list){
+			for (String str : liste){
+				if (p.getUri().toString().equals(str)) {
+					long id_util = appUserSession.getConnectedUser().getId();
+					if (p.getAlbum().getOwner().getId() == id_util){
+						lister.add(p);
+					}
+					else if ( p.getAlbum().getSharedWith().contains(appUserSession.getConnectedUser())){
+						lister.add(p);
+					}
+				}
+			}
 		}
 		
-		return list;
+		return lister;
 	}
 	
 	
