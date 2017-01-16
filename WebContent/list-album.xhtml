@@ -148,6 +148,8 @@
 	Les utilisateurs n'ont pas encore partagé d'album avec vous
 </c:if>
 <h:form >
+<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
+
 <h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
 </h:form>
 

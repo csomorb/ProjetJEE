@@ -10,4 +10,5 @@ public interface Pages {
 	public final static String album = "faces/album.xhtml";
 	public final static String partage = "faces/partage.xhtml";
 	public final static String tag = "faces/tag.xhtml";
+	public final static String recherche = "faces/recherche.xhtml";
 }

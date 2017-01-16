@@ -2,11 +2,13 @@ package fr.uga.miashs.album.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.DirectoryNotEmptyException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -42,6 +44,22 @@ public class PictureService extends JpaService<Long,Picture>{
 		Query query = getEm().createNamedQuery("Picture.findAlbum");
 		query.setParameter("album", getEm().merge(a));
 		return query.getResultList();
+	}
+	
+	public ArrayList<Picture> listPictureURIList(ArrayList<String> liste){
+		ArrayList<Picture> list = new ArrayList<Picture>();
+		for (String str : liste){
+			System.out.println("recherche de" + str);
+			Query query = getEm().createNamedQuery("Picture.findByURI");
+			URI uri = URI.create(str);
+			System.out.println(uri.toString());
+			query.setParameter("uri", uri);
+			Picture p = (Picture) query.getSingleResult();
+			System.out.println(p.getLocalfile() + "trouve");
+			list.add(p);
+		}
+		
+		return list;
 	}
 	
 	

@@ -90,6 +90,25 @@ public class PictureAnnotationService {
 			return liste;
 		}
 	
+	// retourne une liste des images du résultat de la requete
+		public ArrayList<String> recherche(String req){
+			ArrayList<String> liste = new ArrayList<String>();
+			Query query = QueryFactory.create(req);
+			try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
+				System.out.println("Execution requete de recherche: ");
+			    ResultSet results = qexec.execSelect() ;
+			    for ( ; results.hasNext() ; )
+			    {
+			      QuerySolution soln = results.nextSolution() ;
+			      RDFNode x = soln.get("subject") ;
+			    	  System.out.println(x.toString());
+			    	  liste.add(x.toString());
+			      
+			    }
+			  }
+			  System.out.println("Fin requete : ");
+			return liste;
+		}
 	
 	public void test() {
 		System.out.println("enter test");

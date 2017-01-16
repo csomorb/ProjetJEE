@@ -8,7 +8,13 @@
         <title>Recherche</title>
     </h:head>
     <h:body>
+    <h:form>  
+      <h:inputTextarea rows="10" cols="50" value="#{rechercheController.rechercheArea}" />
       
+      <h:commandButton action="#{rechercheController.rechercher()}" value="Rechercher">
+	  </h:commandButton> 
+      
+    </h:form>  
       <ui:repeat var="image" value="#{rechercheController.pictureListe}">
      	<h:graphicImage value="resources/img/#{image.getAlbum().getOwner().getId()}/#{image.getAlbum().getId()}/#{image.getTitle()}" class="minature-album" alt="image"/>
     </ui:repeat>
