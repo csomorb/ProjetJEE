@@ -103,7 +103,7 @@ public class TaggingController {
 		//l'utilisateur a sélectionné des objets à ajouter à la photo
 		if (this.selectedObjet.size() > 0 ){
 			for (String ob  : selectedObjet ){
-				pictureAnnotationService.insertPersonne(picture.getUri(), ob);
+				pictureAnnotationService.insertObjet(picture.getUri(), ob);
 			} 
 		}
 				

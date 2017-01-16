@@ -11,12 +11,10 @@
 		<h:outputLabel for="email" value="Adresse email : " />
 		<p:inputText id="email" value="#{appUserSession.email}" 
 			title="Renseignez votre email"/>
-			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
 		<br/>
 		
 		<h:inputSecret id="password" value="#{appUserSession.password}" 
 			title="Donnez un mot de passe"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
 		<br/>
 		
 		<h:commandButton action="#{appUserSession.login()}" value="Me connecter"/>
