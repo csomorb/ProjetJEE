@@ -123,6 +123,9 @@ public class TaggingController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		this.selectedLieu = this.pictureAnnotationService.tousLesLieuxPicture(picture.getUri().toString());
+		this.selectedObjet = this.pictureAnnotationService.tousLesObjetsPicture(picture.getUri().toString());
+		this.selectedPersonne = this.pictureAnnotationService.tousLesPersonnesPicture(picture.getUri().toString());
 		return Pages.tag;
 	}
 	

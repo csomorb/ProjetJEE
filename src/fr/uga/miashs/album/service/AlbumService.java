@@ -67,7 +67,9 @@ public class AlbumService extends JpaService<Long,Album> {
 	//	System.out.println(zip.getSize());
 		Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getRealPath("resources/img/"));
 	//	Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("directory"));
+		System.out.println("ajout");
 		Path utilPath = rootDir.resolve( Long.toString(a.getOwner().getId()) );
+		System.out.println("ok");
 		super.create(a);
 		Path albPath = utilPath.resolve(Long.toString( a.getId()) );
 		System.out.println(albPath.toString());

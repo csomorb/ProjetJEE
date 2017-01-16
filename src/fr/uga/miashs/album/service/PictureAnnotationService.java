@@ -80,17 +80,17 @@ public class PictureAnnotationService {
 		return liste;
 	}
 	
-	// retourne une liste de tous les objets
-		public ArrayList<String> tousLesObjets(){
+	// retourne une liste des lieux de l'image
+		public ArrayList<String> tousLesLieuxPicture(String uri){
 			ArrayList<String> liste = new ArrayList<String>();
-			Query query = QueryFactory.create("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?subject ?predicate ?object WHERE {  ?subject a <http://www.ILoveWebSemantic.com/photoApp#Objet> }");
+			Query query = QueryFactory.create("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?subject ?predicate ?object WHERE {  <"+uri+"> <http://www.ILoveWebSemantic.com/photoApp#photoPriseA> ?object }");
 			  try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
-				System.out.println("Execution requete de la liste des objets: ");
+				System.out.println("Execution requete de la liste des leiyx: ");
 			    ResultSet results = qexec.execSelect() ;
 			    for ( ; results.hasNext() ; )
 			    {
 			      QuerySolution soln = results.nextSolution() ;
-			      RDFNode x = soln.get("subject") ;
+			      RDFNode x = soln.get("object") ;
 			      if (x.toString().contains("http://www.ILoveWebSemantic.com/photoApp")) {
 			    	  String str = x.toString().substring(41).replace('_',' ');
 			    	  liste.add(str);
@@ -100,6 +100,48 @@ public class PictureAnnotationService {
 			  System.out.println("Fin requete : ");
 			return liste;
 		}
+	
+	// retourne une liste de tous les objets
+		public ArrayList<String> tousLesObjetsPicture(String uri){
+			ArrayList<String> liste = new ArrayList<String>();
+			Query query = QueryFactory.create("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?subject ?predicate ?object WHERE {  <"+uri+"> <http://www.ILoveWebSemantic.com/photoApp#objetPresent> ?object }");
+			  try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
+				System.out.println("Execution requete de la liste des objets: ");
+			    ResultSet results = qexec.execSelect() ;
+			    for ( ; results.hasNext() ; )
+			    {
+			      QuerySolution soln = results.nextSolution() ;
+			      RDFNode x = soln.get("object") ;
+			      if (x.toString().contains("http://www.ILoveWebSemantic.com/photoApp")) {
+			    	  String str = x.toString().substring(41).replace('_',' ');
+			    	  liste.add(str);
+			      }
+			    }
+			  }
+			  System.out.println("Fin requete : ");
+			return liste;
+		}
+		
+		// retourne une liste des objets de l'image
+				public ArrayList<String> tousLesObjets(){
+					ArrayList<String> liste = new ArrayList<String>();
+					Query query = QueryFactory.create("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?subject ?predicate ?object WHERE {  ?subject a <http://www.ILoveWebSemantic.com/photoApp#Objet> }");
+					  try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
+						System.out.println("Execution requete de la liste des objets: ");
+					    ResultSet results = qexec.execSelect() ;
+					    for ( ; results.hasNext() ; )
+					    {
+					      QuerySolution soln = results.nextSolution() ;
+					      RDFNode x = soln.get("subject") ;
+					      if (x.toString().contains("http://www.ILoveWebSemantic.com/photoApp")) {
+					    	  String str = x.toString().substring(41).replace('_',' ');
+					    	  liste.add(str);
+					      }
+					    }
+					  }
+					  System.out.println("Fin requete : ");
+					return liste;
+				}
 	
 	// retourne une liste de tous les personnes
 		public ArrayList<String> tousLesPersonnes(){
@@ -121,6 +163,27 @@ public class PictureAnnotationService {
 			  System.out.println("Fin requete : ");
 			return liste;
 		}
+		
+		// retourne une liste des personnes de l'image
+				public ArrayList<String> tousLesPersonnesPicture(String uri){
+					ArrayList<String> liste = new ArrayList<String>();
+					Query query = QueryFactory.create("PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> SELECT ?subject ?predicate ?object WHERE {  <"+uri+"> <http://www.ILoveWebSemantic.com/photoApp#estPresent> ?object }");
+					  try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
+						System.out.println("Execution requete de la liste des personnes: ");
+					    ResultSet results = qexec.execSelect() ;
+					    for ( ; results.hasNext() ; )
+					    {
+					      QuerySolution soln = results.nextSolution() ;
+					      RDFNode x = soln.get("object") ;
+					      if (x.toString().contains("http://www.ILoveWebSemantic.com/photoApp")) {
+					    	  String str = x.toString().substring(41).replace('_',' ');
+					    	  liste.add(str);
+					      }
+					    }
+					  }
+					  System.out.println("Fin requete : ");
+					return liste;
+				}
 	
 	// retourne une liste des images du résultat de la requete
 		public ArrayList<String> recherche(String req){
@@ -177,7 +240,7 @@ public class PictureAnnotationService {
 			return liste;
 		}
 	
-	public void test() {
+/*	public void test() {
 		System.out.println("enter test");
 		
 		// SPARQL Update
@@ -205,7 +268,7 @@ public class PictureAnnotationService {
 		    }
 		  }
 		  System.out.println("Fin requete : ");
-	}
+	}*/
 	
 	
 	
