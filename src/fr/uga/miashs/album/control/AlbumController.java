@@ -40,38 +40,28 @@ public class AlbumController {
 	
 	private String description; 
 
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
 	private Part zip;
 	
 	private Album album;
 	
 	@PostConstruct
 	public void init() {
-		System.out.println("postconstruct");
-		
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String idAlbum = params.get("idAlbum");
-		
-		System.out.println(idAlbum + " id de l'album");
 		if (idAlbum != null)
-			album = getAlbumById(idAlbum);
-		
-		
+			album = getAlbumById(idAlbum);		
 		if (album != null)
 			listeImage = listPictureAlbum();
     }
 	
 	private List<Picture> listeImage;
 	
-	public List<Picture> getListeImage() {
-		return listeImage;
+	public String ajout(){
+		return Pages.add_album;
+	}
+	
+	public String listAlbum(){
+		return Pages.list_album;
 	}
 	
 	public Album getAlbum() {
@@ -80,11 +70,9 @@ public class AlbumController {
 		}
 		return album;
 	}
-	
-	
+		
 	public String createAlbum() {
 		try {
-		//	albumService.create(album);
 			albumService.create2(album,zip);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
@@ -95,7 +83,7 @@ public class AlbumController {
 	
 	public List<Album> getListAlbumOwnedByCurrentUser() {
 		try {
-			System.out.println(appUserSession.getConnectedUser().getEmail() + " e mail");
+	//		System.out.println(appUserSession.getConnectedUser().getEmail() + " e mail");
 			return albumService.listAlbumOwnedBy(appUserSession.getConnectedUser());
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
@@ -122,7 +110,7 @@ public class AlbumController {
 	
 	public List<Picture> listPictureAlbum(){
 		try {
-			System.out.println(album.getTitle());
+	//		System.out.println(album.getTitle());
 			return pictureService.listPictureAlbum(album);
 		} catch (ServiceException e) {
 			// TODO Auto-generated catch block
@@ -152,23 +140,8 @@ public class AlbumController {
 	}
 	
 	public String deletePicture(Long id){
-		//Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-	//	String idAlbum = params.get("idAlbum");
-	//	album = getAlbumById(idAlbum);
 		Picture p;
-	//	try {
-			pictureService.deleteById(id);
-			//p = pictureService.pictureById(id);
-		//	album.removePicture(p);
-			//albumService.deletePicture(id,album);
-	//	} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-	//		e.printStackTrace();
-	//	}
-	//	pictureService.deletePictureById(id);
-		//this.listeImage = listPictureAlbum();
-		//this.description = album.getDescription();
-	
+		pictureService.deleteById(id);	
 		return Pages.album;
 	}
 	
@@ -181,12 +154,24 @@ public class AlbumController {
 		return null;
 	}
 
-
+	// getters et setters
+	
 	public Part getZip() {
 		return zip;
 	}
 
+	public String getDescription() {
+		return description;
+	}
 
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
+	public List<Picture> getListeImage() {
+		return listeImage;
+	}
+	
 	public void setZip(Part zip) {
 		this.zip = zip;
 	}

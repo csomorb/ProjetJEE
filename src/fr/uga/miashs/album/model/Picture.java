@@ -31,7 +31,7 @@ public class Picture {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne
 	private Album album;
 	
 	@NotNull

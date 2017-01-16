@@ -3,19 +3,42 @@
     xmlns="http://www.w3.org/1999/xhtml"
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
-    xmlns:ui="http://java.sun.com/jsf/facelets">
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Recherche</title>
+        <h:outputStylesheet library="css" name="album.css"  />
     </h:head>
     <h:body>
+    <h:form >
+		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
+        <h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
+		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>	
+	</h:form>
     <h:form>  
-      <h:inputTextarea rows="10" cols="50" value="#{rechercheController.rechercheArea}" />
-      
-      <h:commandButton action="#{rechercheController.rechercher()}" value="Rechercher">
-	  </h:commandButton> 
-      
-    </h:form>  
-      <ui:repeat var="image" value="#{rechercheController.pictureListe}">
+      <h:inputTextarea rows="10" cols="50" value="#{rechercheController.rechercheArea}" />   
+      <h:commandButton action="#{rechercheController.rechercher()}" value="Rechercher"/>      
+    </h:form>
+    
+    <h:form>
+    	<h:panelGrid columns="3" cellpadding="5">
+			<h:outputLabel for="menu2" value="Avec qui la photo a été prise :" />
+			<p:selectCheckboxMenu id="menu2" value="#{rechercheController.selectedPersonne}" label="Sélectionez les personnes"
+		                      filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		    	<f:selectItems value="#{rechercheController.listePersonne}" />
+		    </p:selectCheckboxMenu>
+	   </h:panelGrid>
+	   <h:panelGrid columns="3" cellpadding="5">
+			<h:outputLabel for="menu" value="Ou la photo a été  prise:" />
+		    <p:selectCheckboxMenu id="menu" value="#{rechercheController.selectedLieu}" label="Sélectionez un lieu"
+		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		        <f:selectItems value="#{rechercheController.listeLieu}" />
+	       	</p:selectCheckboxMenu>
+		</h:panelGrid>	   
+	   
+	   <h:commandButton action="#{rechercheController.rechercherPersonnesEtLieu()}" value="Rechercher"/>
+    </h:form>
+    <ui:repeat var="image" value="#{rechercheController.pictureListe}">
      	<h:graphicImage value="resources/img/#{image.getAlbum().getOwner().getId()}/#{image.getAlbum().getId()}/#{image.getTitle()}" class="minature-album" alt="image"/>
     </ui:repeat>
         

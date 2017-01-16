@@ -10,8 +10,12 @@
         <h:outputStylesheet library="css" name="album.css"  />
     </h:head>
     <h:body>
-    <ui:include src="/WEB-INF/menu.xhtml" />
-    
+    <h:form >
+		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
+		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
+		<h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
+		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
+	</h:form>   
     <h1>
         <h:outputText value="#{albumController.album.title}"> </h:outputText>
     </h1>
@@ -23,17 +27,11 @@
     	<h:form>
     	<h:outputLabel for="descr" value="Nouveau description : " />
 		<h:inputText id="descr" value="#{albumController.description}" 
-			title="Nouvelle description"/>
-    
-   
-    
+			title="Nouvelle description"/>    
     	<h:commandButton action="#{albumController.changerDescription()}" value="Changer la description">
     	   <f:param name="idAlbum" value="#{albumController.album.id}" />
     	</h:commandButton>
-    	
-    </h:form>
-    
-    
+        </h:form>
 	    <h:form>
 		    <h:commandLink action="#{partageController.partagerAlbum()}" value="Partager l'abum">
 				<f:param name="idAlbum" value="#{albumController.album.id}" />
@@ -54,42 +52,5 @@
 			
 		</h:form>
     </ui:repeat>
-    
------------------------------------------------------------------------------------------<br/>
-<h:form >
-
-<h:dataTable value="#{albumController.listeImage}" var="alb" >
-   <h:column>    				
-     <f:facet name="header">Titre</f:facet>    				
-     <h:outputText value="#{alb.title}"/> 
-   </h:column>
-   <h:column>
-      <f:facet name="header">Id</f:facet>
-      <h:outputText value="#{alb.id}"/> 
-   </h:column>
-   <h:column>
-   	  <f:facet name="header">Lien de l'album</f:facet>	  
-      <h:commandButton action="#{taggingController.tagPhoto}" value="Tagger">
-		<f:param name="idAlbum" value="#{alb.id}" />
-	</h:commandButton> 
-	<h:commandLink action="#{taggingController.tagPhoto}" value="Tagger">
-		<f:param name="idAlbum" value="#{alb.id}" />
-	</h:commandLink>
-	
-	
-   	</h:column>  
-   
-   
-   <!-- 
-   <h:column>
-      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>
-   </h:column>
-   -->
-</h:dataTable>
-
-</h:form>
-
-
-
     </h:body>
 </html>

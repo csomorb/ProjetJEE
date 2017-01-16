@@ -27,10 +27,14 @@ public class AppUserService extends JpaService<Long,AppUser> {
 			else {
 				new ServiceException(e);
 			}
-			//System.out.println("coucou");
 		}
 	}
 
+	public AppUser update(AppUser u){
+		super.update(u);
+		return u;
+	}
+	
 	public AppUser login(String email, String password) throws ServiceException {
 		Query query = getEm().createNamedQuery("AppUser.login");
 		query.setParameter("email", email);

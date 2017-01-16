@@ -10,27 +10,27 @@
         <title>Taguer la photo</title>
     </h:head>
     <h:body>
-        <h2> Taguer la photo : </h2>
-        <img src="#{taggingController.picture.getLocalfile()}" alt="s" class="minature-album"/> 
+    <h:form >
+		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
+        <h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
+		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>	
+	</h:form>
+    <h2> Taguer la photo : </h2>
+    
+    <img src="#{taggingController.picture.getLocalfile()}" alt="s" class="minature-album"/> 
         
-        
-        <h:form>
-        
-        
-
-		    <h:panelGrid columns="3" cellpadding="5">
-		        <h:outputLabel for="menu" value="Ou la photo a été  prise:" />
-		        <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Sélectionez un lieu"
+    <h:form>
+		<h:panelGrid columns="3" cellpadding="5">
+			<h:outputLabel for="menu" value="Ou la photo a été  prise:" />
+		    <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Sélectionez un lieu"
 		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-		            <f:selectItems value="#{taggingController.listeLieu}" />
-		        </p:selectCheckboxMenu>
-		    </h:panelGrid>
-        
-        
+		        <f:selectItems value="#{taggingController.listeLieu}" />
+	       	</p:selectCheckboxMenu>
+		</h:panelGrid>
         
         Quand la photo a été prise :  
         <h:panelGrid columns="2" cellpadding="5">
-        <p:outputLabel for="inline" value="Inline:" />
+        <p:outputLabel for="inline" value="Date de la prise de vue: " />
         <p:calendar id="inline" value="#{taggingController.date}" mode="inline" />
         </h:panelGrid>
         
@@ -46,9 +46,7 @@
         
 	    <h:commandButton action="#{taggingController.taguer()}" value="Annoter la photo">
 			<f:param name="photoId" value="#{taggingController.picture.id}" />
-		</h:commandButton> 
-        
-        </h:form>
-        
+		</h:commandButton>     
+    </h:form>  
     </h:body>
 </html>

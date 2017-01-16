@@ -82,25 +82,11 @@ public class PictureService extends JpaService<Long,Picture>{
 	}
 	
 	public void sup(long id) throws ServiceException {
-	//	Query query = getEm().createNamedQuery("Picture.deleteById");
-	//	query.setParameter("id", id);
-	//	query.executeUpdate();
-	//	return query.getSingleResult();
 		super.deleteById(id);
 	}
 	
 	public void deletePictureById(Long id) {
 		// supprimer du disque
-	/*	try {
-			Picture p = pictureById(id);
-			// construction du chemin
-			System.out.println("suppression du fichier " + p.getLocalfile() + " du disque dur");
-			File image = new File(p.getLocalfile());
-			image.delete();
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		try {
 			Picture p = pictureById(id);
 			System.out.println("suppression du fichier " + p.getLocalfile() + " du disque dur");
@@ -125,15 +111,11 @@ public class PictureService extends JpaService<Long,Picture>{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		// supprimer de la bdd
-		//super.deleteById(id);
 	}
 	
 	public List<Picture> getListPicture() throws ServiceException {
 		//La requete est définie dans la classe Picture grâce à une annotation
 		Query query = getEm().createNamedQuery("Picture.findAllPicture");
-	///	query.setParameter();
 		return query.getResultList();
 	}
 	

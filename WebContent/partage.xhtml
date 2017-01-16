@@ -10,31 +10,37 @@
         <title>Partager son album</title>
     </h:head>
     <h:body>
-    	
-    	<h3>Grid Layout</h3>
-    	Partager l'album <h:outputText value="#{partageController.album.title}"></h:outputText>   avec les utilisateurs : 
-    	<br/>
-    	
-
-			<c:forEach var="entry" items="#{partageController.selectedUsers.entrySet().toArray()}" >
-		
-			<h:outputText value="#{entry.key.firstname}"/> #{entry.key.id} #{entry.key.lastname} 
-			<h:form>
+    <h:form >
+		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos">
+			<f:param name="idAlbum" value="#{partageController.album.id}" />
+		</h:commandButton>	
+		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album">
+			<f:param name="idAlbum" value="#{partageController.album.id}" />
+		</h:commandButton>	
+		<h:commandButton action="#{albumController.afficherAlbum}" value="Retour a l album">
+			<f:param name="idAlbum" value="#{partageController.album.id}" />
+        </h:commandButton>
+        <h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums">
+        	<f:param name="idAlbum" value="#{partageController.album.id}" />
+        </h:commandButton>
+		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter">
+			<f:param name="idAlbum" value="#{partageController.album.id}" />
+		</h:commandButton>	
+	</h:form>	
+    <h3>Partager l'abum</h3>
+    Partager l'album <h:outputText value="#{partageController.album.title}"></h:outputText>   avec les utilisateurs : 
+    <br/>
+	<c:forEach var="entry" items="#{partageController.selectedUsers.entrySet().toArray()}" >
+	
+		<h:outputText value="#{entry.key.firstname}"/> #{entry.key.lastname} 
+		<h:form>
 			<h:commandButton action="#{partageController.modifierPartage()}" value="#{entry.value}">
 				<f:param name="idAlbum" value="#{partageController.album.id}" />
 				<f:param name="idUser" value="#{entry.key.id}" />
 				<f:param name="action_partage" value="#{entry.value}" />
 			</h:commandButton>
-			</h:form>
+		</h:form>
 	</c:forEach>
-
-			<c:forEach var="counter" begin="1" end="10">
- <h:outputText value="${counter}"/>
-</c:forEach>
-
-
-		
-
     	
     </h:body>
 </html>

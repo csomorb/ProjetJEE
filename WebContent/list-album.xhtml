@@ -9,150 +9,70 @@
 
 <f:view>
 <h:head>
-  <h:outputStylesheet library="css" name="bulma.css"  />
 </h:head>
 <h:body>
-	
-	
-	<nav class="nav">
-  <div class="nav-left">
-    <a class="nav-item">
-      <img src="http://bulma.io/images/bulma-logo.png" alt="Bulma logo"/>
-    </a>
-  </div>
-
-  <div class="nav-center">
-    <a class="nav-item">
-      <span class="icon">
-        <i class="fa fa-github"></i>
-      </span>
-    </a>
-    <a class="nav-item">
-      <span class="icon">
-        <i class="fa fa-twitter"></i>
-      </span>
-    </a>
-  </div>
-
-  <!-- This "nav-toggle" hamburger menu is only visible on mobile -->
-  <!-- You need JavaScript to toggle the "is-active" class on "nav-menu" -->
-  <span class="nav-toggle">
-    <span></span>
-    <span></span>
-    <span></span>
-  </span>
-
-  <!-- This "nav-menu" is hidden on mobile -->
-  <!-- Add the modifier "is-active" to display it on mobile -->
-  <div class="nav-right nav-menu">
-    <a class="nav-item">
-      Home
-    </a>
-    <a class="nav-item">
-      Documentation
-    </a>
-    <a class="nav-item">
-      Blog
-    </a>
-
-    <span class="nav-item">
-      <a class="button" >
-        <span class="icon">
-          <i class="fa fa-twitter"></i>
-        </span>
-        <span>Tweet</span>
-      </a>
-      <a class="button is-primary">
-        <span class="icon">
-          <i class="fa fa-download"></i>
-        </span>
-        <span>Download</span>
-      </a>
-    </span>
-  </div>
-</nav>
-	
-	
-	
-	<ui:include src="/WEB-INF/menu.xhtml" />
-	
-	
-	
+	<h:form >
+		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
+		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
+		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
+	</h:form>
 	
 	<h1>Mes albums</h1>
 	
-	<h:link value="Ajouter un album" outcome="add-album" />
-	
-<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() > 0 }">
+	<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() > 0 }">
+		<h:form >
+			<h:dataTable value="#{albumController.listAlbumOwnedByCurrentUser}" var="alb" >
+   				<h:column>    				
+     				<f:facet name="header">Titre</f:facet>    				
+     				<h:outputText value="#{alb.title}"/> 
+   				</h:column>
+   				<h:column>
+				    <f:facet name="header">Description</f:facet>
+				    <h:outputText value="#{alb.description}"/> 
+			   </h:column>
+			   <h:column>
+			   	  <f:facet name="header">Lien de l'album</f:facet>	  
+			      <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher album">
+					<f:param name="idAlbum" value="#{alb.id}" />
+				  </h:commandButton> 				
+			   </h:column>  
+			   <!-- 
+			   <h:column>
+			      <h:commandLink action="#{albumController.delete(alb.id)}" value="Supprimer l'album"/>
+			   </h:column>
+			   -->
+			</h:dataTable>
 
-<h:form >
+		</h:form>	
+	</c:if>
+	<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() == 0 }">
+  		Vous n'avez pas encore d'album, vous pouvez en ajouter en cliquant sur le bouton ajouter un album. 
+	</c:if>
 
-<h:dataTable value="#{albumController.listAlbumOwnedByCurrentUser}" var="alb" >
-   <h:column>    				
-     <f:facet name="header">Titre</f:facet>    				
-     <h:outputText value="#{alb.title}"/> 
-   </h:column>
-   <h:column>
-      <f:facet name="header">Description</f:facet>
-      <h:outputText value="#{alb.description}"/> 
-   </h:column>
-   <h:column>
-   	  <f:facet name="header">Lien de l'album</f:facet>	  
-      <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher button">
-		<f:param name="idAlbum" value="#{alb.id}" />
-	</h:commandButton> 
-	<h:commandLink action="#{albumController.afficherAlbum}" value="Afficher lien">
-		<f:param name="idAlbum" value="#{alb.id}" />
-	</h:commandLink>
-	
-	
-   	</h:column>  
-   
-   
-   <!-- 
-   <h:column>
-      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>
-   </h:column>
-   -->
-</h:dataTable>
-
-</h:form>	
-</c:if>
-<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() == 0 }">
-  Vous n'avez pas encore d'album, vous pouvez en ajouter en cliquant sur le bouton ajouter un album. 
-</c:if>
-
-<h1>Albums partagés avec moi</h1>
-<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() > 0 }">
-<h:form >
-
-<h:dataTable value="#{albumController.listAlbumShareWdithCurrentUser}" var="alb" >
-   <h:column>    				
-     <f:facet name="header">Titre</f:facet>    				
-     <h:outputText value="#{alb.title}"/> 
-   </h:column>
-   <h:column>
-      <f:facet name="header">Description</f:facet>
-      <h:outputText value="#{alb.description}"/> 
-   </h:column>
-   <h:column>
-   	  <f:facet name="header">Lien de l'album</f:facet>	  
-      <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher button">
-		<f:param name="idAlbum" value="#{alb.id}" />
-	</h:commandButton> 	
-   	</h:column>  
-</h:dataTable>
-</h:form>	
-</c:if>
-<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() == 0 }">
-	Les utilisateurs n'ont pas encore partagé d'album avec vous
-</c:if>
-<h:form >
-<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
-
-<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
-</h:form>
-
+	<h1>Albums partagés avec moi</h1>
+	<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() > 0 }">
+		<h:form >
+			<h:dataTable value="#{albumController.listAlbumShareWdithCurrentUser}" var="alb" >
+   				<h:column>    				
+     				<f:facet name="header">Titre</f:facet>    				
+     				<h:outputText value="#{alb.title}"/> 
+   				</h:column>
+   				<h:column>
+      				<f:facet name="header">Description</f:facet>
+      				<h:outputText value="#{alb.description}"/> 
+   				</h:column>
+   				<h:column>
+   	  				<f:facet name="header">Lien de l'album</f:facet>	  
+      				<h:commandButton action="#{albumController.afficherAlbum}" value="Afficher album">
+						<f:param name="idAlbum" value="#{alb.id}" />
+					</h:commandButton> 	
+   				</h:column>  
+			</h:dataTable>
+		</h:form>	
+	</c:if>
+	<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() == 0 }">
+		Les utilisateurs n'ont pas encore partagé d'album avec vous
+	</c:if>
 </h:body>
 </f:view>
 </html>

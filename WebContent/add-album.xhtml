@@ -6,7 +6,11 @@
     xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:body>
-	<ui:include src="/WEB-INF/menu.xhtml" />
+	<h:form >
+		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
+		<h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
+		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
+	</h:form>
 
 	<h:form enctype="multipart/form-data">
 		<h:outputLabel for="titre" value="Titre : " />

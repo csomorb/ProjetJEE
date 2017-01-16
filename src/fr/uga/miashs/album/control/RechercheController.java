@@ -24,7 +24,15 @@ public class RechercheController {
 	
 	private ArrayList<Picture> pictureListe;
 	
+	private ArrayList<String> selectedPersonne;
+	
+	private ArrayList<String> listePersonne;
+	
 	private String rechercheArea;
+	
+	private ArrayList<String> selectedLieu;
+	
+	private ArrayList<String> listeLieu;
 	
 	@PostConstruct
 	public void init(){
@@ -37,6 +45,8 @@ public class RechercheController {
                                 " WHERE { " +
                                       " ?subject myo:datePriseDeVue ?object " +
                                        " } ";
+		this.listePersonne = pictureAnnotationService.tousLesPersonnes();
+		this.listeLieu = pictureAnnotationService.tousLesLieux();
 	}
 	
 	public String rech(){
@@ -44,8 +54,15 @@ public class RechercheController {
 		return Pages.recherche;		
 	}
 	
+	public String rechercherPersonnesEtLieu(){
+		
+		ArrayList<String> liste = this.pictureAnnotationService.recherchePersonnesEtLieu(selectedPersonne,selectedLieu);
+		this.pictureListe = pictureService.listPictureURIList(liste);
+		return Pages.recherche;
+	}
+	
 	public String rechercher(){
-		System.out.print(this.rechercheArea);
+	//	System.out.print(this.rechercheArea);
 		ArrayList<String> liste = this.pictureAnnotationService.recherche(this.rechercheArea);
 		this.pictureListe = pictureService.listPictureURIList(liste);
 		return Pages.recherche;
@@ -69,7 +86,38 @@ public class RechercheController {
 	public void setPictureListe(ArrayList<Picture> pictureListe) {
 		this.pictureListe = pictureListe;
 	}
-	
+
+	public ArrayList<String> getSelectedPersonne() {
+		return selectedPersonne;
+	}
+
+	public void setSelectedPersonne(ArrayList<String> selectedPersonne) {
+		this.selectedPersonne = selectedPersonne;
+	}
+
+	public ArrayList<String> getListePersonne() {
+		return listePersonne;
+	}
+
+	public void setListePersonne(ArrayList<String> listePersonne) {
+		this.listePersonne = listePersonne;
+	}
+
+	public ArrayList<String> getSelectedLieu() {
+		return selectedLieu;
+	}
+
+	public void setSelectedLieu(ArrayList<String> selectedLieu) {
+		this.selectedLieu = selectedLieu;
+	}
+
+	public ArrayList<String> getListeLieu() {
+		return listeLieu;
+	}
+
+	public void setListeLieu(ArrayList<String> listeLieu) {
+		this.listeLieu = listeLieu;
+	}
 	
 	
 }

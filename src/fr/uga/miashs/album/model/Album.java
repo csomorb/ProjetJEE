@@ -35,13 +35,14 @@ public class Album {
 	private String description;
 	
 	@NotNull
-	@ManyToOne(cascade={CascadeType.PERSIST})
+	@ManyToOne(cascade = CascadeType.ALL)
 	private AppUser owner;
 	
-	@ManyToMany(cascade={CascadeType.PERSIST})
+	@ManyToMany
 	private Set<AppUser> sharedWith;
 	
-	@OneToMany(mappedBy="album")
+
+	@OneToMany(mappedBy="album", cascade = CascadeType.ALL)
 	private Set<Picture> pictures;
 
 	protected Album() {
@@ -90,23 +91,23 @@ public class Album {
 	
 	public void setSharedWith(AppUser user){
 		this.sharedWith.add(user);
-		for ( AppUser usert : sharedWith ) {
+	/*	for ( AppUser usert : sharedWith ) {
 			 System.out.println("----------liste-utilisateur--------" + usert.getFirstname() + usert.getLastname());	
-		}
+		}*/
 	}
 	
 	public void addUserShared(AppUser user){
 		this.setSharedWith(user);
-		for ( AppUser usert : sharedWith ) {
+	/*	for ( AppUser usert : sharedWith ) {
 			 System.out.println("----------liste-utilisateur--------" + usert.getFirstname() + usert.getLastname());	
-		}
+		}*/
 	}
 	
 	public void removeUserShared(AppUser user){
 		this.sharedWith.remove(user);
-		for ( AppUser usert : sharedWith ) {
+	/*	for ( AppUser usert : sharedWith ) {
 			 System.out.println("----------liste-utilisateur--------" + usert.getFirstname() + usert.getLastname());	
-		}
+		}*/
 	}
 	
 	public void removePicture(Picture p){

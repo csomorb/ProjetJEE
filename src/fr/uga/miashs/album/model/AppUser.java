@@ -2,6 +2,7 @@ package fr.uga.miashs.album.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -48,7 +49,7 @@ public class AppUser {
 	@NotNull
 	private String password;
 	
-	@OneToMany(mappedBy="owner")
+	@OneToMany(mappedBy="owner", cascade = CascadeType.ALL)
 	private List<Album> userAlbums;
 
 	public AppUser() {

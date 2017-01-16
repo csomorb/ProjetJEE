@@ -26,11 +26,11 @@ import fr.uga.miashs.album.util.Pages;
 @RequestScoped
 public class PartageController  implements Serializable{
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
+	@Inject
+	private AppUserSession appUserSession;
+	
 	@Inject
 	private AlbumService albumService;
 	
@@ -41,21 +41,8 @@ public class PartageController  implements Serializable{
 	
 	private Map<AppUser, String> selectedUsers;
 	
-	public Album getAlbum() {
-		return album;
-	}
-	
-	public Map<AppUser, String> getSelectedUsers(){
-		return selectedUsers;
-	}
-
-	public void setAlbum(Album album) {
-		this.album = album;
-	}
-	
 	@PostConstruct
 	public void init() {
-		System.out.println("postconstruct 2");
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String idAlbum = params.get("idAlbum");
 		album = getAlbumById(idAlbum);
@@ -72,15 +59,14 @@ public class PartageController  implements Serializable{
 	
 	
 	public String modifierPartage() {
-		System.out.println("mise a jour");
+		System.out.println("mise a jour du partage");
 		Map<String,String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
 		String idAlbum = params.get("idAlbum"); 
 		String actionPartage = params.get("action_partage");
-		System.out.println(idAlbum);
 		Long idUser = Long.parseLong(params.get("idUser"));
 		album = getAlbumById(idAlbum);
-		System.out.println(idUser);
 		AppUser userToModify;
+		this.appUserService.update(appUserSession.getConnectedUser());
 		try {
 			userToModify = getUserById(idUser);
 			// si on partage l'album
@@ -98,7 +84,6 @@ public class PartageController  implements Serializable{
 		}
 				
 		this.album = albumService.update(album);
-		System.out.println("mise a jour");
 		initialiserListeUser();	
 		return Pages.partage;
 	}
@@ -110,25 +95,20 @@ public class PartageController  implements Serializable{
 		// liste des utilisateurs partagés
 		
 		for ( AppUser user : appUserService.listUserWithout(album.getOwner().getId()) ) {
-			 listUsers.add(user);
-			 System.out.println("----------user without current user" + user.getFirstname() + user.getLastname());			 
+			 listUsers.add(user);		 
 		}
 		
-		
 		for ( AppUser user : album.getSharedWith() ) {
-			 listPartage.add(user);
-			 System.out.println("----------user shared with current user" + user.getFirstname() + user.getLastname());	
+			 listPartage.add(user);	
 		}
 		listUsers.removeAll(listPartage);
 		selectedUsers = new HashMap<AppUser,String>();
 		for ( AppUser user : listUsers ) {
 			selectedUsers.put(user, "partager");
-			System.out.println(user.getLastname() + "non t shar");
 		}
 		 
 		for ( AppUser user : listPartage ) {
 			selectedUsers.put(user, "annuler le partage");
-			System.out.println(user.getLastname() + "shar");
 		}
 	}
 	
@@ -145,5 +125,16 @@ public class PartageController  implements Serializable{
 		return null;
 	}
 	
+	// getters & setters
+	public Album getAlbum() {
+		return album;
+	}
 	
+	public Map<AppUser, String> getSelectedUsers(){
+		return selectedUsers;
+	}
+
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 }
