@@ -34,6 +34,13 @@
 		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
 		        <f:selectItems value="#{rechercheController.listeLieu}" />
 	       	</p:selectCheckboxMenu>
+		</h:panelGrid>
+		<h:panelGrid columns="3" cellpadding="5">
+			<h:outputLabel for="menu3" value="Ce que l'on trouve sur la photo:" />
+		    <p:selectCheckboxMenu id="menu3" value="#{rechercheController.selectedObjet}" label="Sélectionez les objets"
+		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		        <f:selectItems value="#{rechercheController.listeObjet}" />
+	       	</p:selectCheckboxMenu>
 		</h:panelGrid>	   
 	   
 	   <h:commandButton action="#{rechercheController.rechercherPersonnesEtLieu()}" value="Rechercher"/>

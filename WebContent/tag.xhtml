@@ -40,9 +40,15 @@
 		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
 		            <f:selectItems value="#{taggingController.listePersonne}" />
 		        </p:selectCheckboxMenu>
-		    </h:panelGrid>
+		</h:panelGrid>       
         
-        Ce qu'on trouve sure la photo : <br/>
+        <h:panelGrid columns="3" cellpadding="5">
+		        <h:outputLabel for="menu3" value="Ce qu'on trouve sur la photo :" />
+		        <p:selectCheckboxMenu id="menu3" value="#{taggingController.selectedObjet}" label="Sélectionez les objets"
+		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+		            <f:selectItems value="#{taggingController.listeObjet}" />
+		        </p:selectCheckboxMenu>
+		</h:panelGrid>
         
 	    <h:commandButton action="#{taggingController.taguer()}" value="Annoter la photo">
 			<f:param name="photoId" value="#{taggingController.picture.id}" />
