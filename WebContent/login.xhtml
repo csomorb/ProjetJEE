@@ -4,22 +4,51 @@
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui">
+	<h:head>
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<script type="text/javascript" src="js/materialize.min.js"></script>
+	</h:head>
 <h:body>
-
-	<h:form>
-		<h:outputLabel for="email" value="Adresse email : " />
-		<p:inputText id="email" value="#{appUserSession.email}" 
-			title="Renseignez votre email"/>
-		<br/>
-		
-		<h:inputSecret id="password" value="#{appUserSession.password}" 
-			title="Donnez un mot de passe"/>
-		<br/>
-		
-		<h:commandButton action="#{appUserSession.login()}" value="Me connecter"/>
-	</h:form>
+    <div class="menu ">
+	  <nav>
+	    <div class="nav-wrapper teal darken-3">
+	      <div class="container">
+	        <a href="#" class="brand-logo">Mon Appli Photo</a>
+	      </div>
+	    </div>
+	  </nav>
+	</div>
+	<div class="container">
+		<div class="row">
+		  <div class="col s12 m6">
+		    <div class="card teal darken-3">
+		      <div class="card-content white-text">
+		        <span class="card-title">Connectez-vous : </span>
+				<!--  connection -->
+				<h:form>
+					<h:outputLabel for="email" value="Adresse email : " />
+					<p:inputText id="email" value="#{appUserSession.email}" 
+						title="Renseignez votre email"/>
+					<br/>
+					<h:outputLabel for="email" value="mot de passe : " />
+					<h:inputSecret id="password" value="#{appUserSession.password}" 
+						title="Donnez un mot de passe"/>
+					<br/>
+					
+					<h:commandButton class="waves-effect waves-light btn" action="#{appUserSession.login()}" value="Me connecter"/>
+				</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
 	
+</div>
 </h:body>
 
 

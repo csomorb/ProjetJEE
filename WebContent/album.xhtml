@@ -8,49 +8,93 @@
     <h:head>
         <title>Album</title>
         <h:outputStylesheet library="css" name="album.css"  />
+
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<h:outputStylesheet library="js" name="materialize.min.js"  />
     </h:head>
     <h:body>
-    <h:form >
-		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
-		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
-		<h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
-		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
-	</h:form>   
-    <h1>
-        <h:outputText value="#{albumController.album.title}"> </h:outputText>
-    </h1>
-    <p>
-    	<h:outputText value="#{albumController.album.description}"> </h:outputText>
-    </p>
-    
-    <c:if test="#{albumController.isMine()}">
-    	<h:form>
-    	<h:outputLabel for="descr" value="Nouveau description : " />
-		<h:inputText id="descr" value="#{albumController.description}" 
-			title="Nouvelle description"/>    
-    	<h:commandButton action="#{albumController.changerDescription()}" value="Changer la description">
-    	   <f:param name="idAlbum" value="#{albumController.album.id}" />
-    	</h:commandButton>
-        </h:form>
-	    <h:form>
-		    <h:commandLink action="#{partageController.partagerAlbum()}" value="Partager l'abum">
-				<f:param name="idAlbum" value="#{albumController.album.id}" />
-			</h:commandLink>
-	    </h:form>
-    </c:if>
-    <ui:repeat var="image" value="#{albumController.listeImage}">
-     	<h:graphicImage value="resources/img/#{image.getAlbum().getOwner().getId()}/#{image.getAlbum().getId()}/#{image.getTitle()}" class="minature-album" alt="image"/>
-     	<h:form>
-    		<h:commandLink action="#{taggingController.tagPhoto}" value="tagger la photo">
-				<f:param name="photoId" value="#{image.id}" />
-				<f:param name="idAlbum" value="#{albumController.album.id}" />
-			</h:commandLink>   |   
-			<h:commandLink action="#{albumController.deletePicture(image.id)}" value="supprimer">
-				<f:param name="photoId" value="#{image.id}" />
-				<f:param name="idAlbum" value="#{albumController.album.id}" />
-			</h:commandLink>
-			
-		</h:form>
-    </ui:repeat>
+	    <div class="menu ">
+		  <nav>
+		    <div class="nav-wrapper teal darken-3">
+		      <div class="container">
+		        <a href="#" class="brand-logo">Mon Appli Photo</a>
+		        <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <h:form>
+		           <li><h:commandLink action="#{rechercheController.rech()}" value="Rechercher des photos"/></li>
+		           <li><h:commandLink action="#{albumController.ajout()}" value="Ajouter un album"/></li>
+		           <li><h:commandLink action="#{albumController.listAlbum}" value="Voire tous les albums"/></li>
+		           <li><h:commandLink action="#{appUserSession.logout()}" value="Me déconnecter"/></li>
+		        </h:form>
+		        </ul>
+		      </div>
+		    </div>
+		  </nav>
+		</div> 
+		<div class="container">
+	        <div class="row">
+        		<div class="col s12 m8">
+     				<!-- titre de l'album -->
+	    			<h3><h:outputText value="#{albumController.album.title}"> </h:outputText></h3>
+	    			<!-- description de l'album -->
+					<p><h:outputText value="#{albumController.album.description}"> </h:outputText></p>
+      			</div>
+      			<div class="col s12 m4">
+      			<!-- Si l'album m'apartient -->
+				<!-- possibilité de le modifier -->
+				    <c:if test="#{albumController.isMine()}">
+				     <div class="card teal darken-3">
+			            <div class="card-content white-text">
+			              	
+					    	  <h:form>
+					    	    <h:outputLabel for="descr" value="Modifier la description : " />
+							    <h:inputText id="descr" value="#{albumController.description}" 
+								  title="Nouvelle description"/>    
+					    	    <h:commandButton class="waves-effect waves-light btn" action="#{albumController.changerDescription()}" value="Modifier">
+					    	     <f:param name="idAlbum" value="#{albumController.album.id}" />
+					    	    </h:commandButton>
+					          </h:form>
+				          </div>
+				          <div class="card-action">
+						    <h:form>
+							    <h:commandButton class="waves-effect waves-light btn" action="#{partageController.partagerAlbum()}" value="Partager l'abum">
+									<f:param name="idAlbum" value="#{albumController.album.id}" />
+								</h:commandButton>
+						    </h:form>
+					    </div>
+				    </div>
+			      </c:if>
+     			</div>
+   		      </div>
+   		      
+		    <!-- affichage de l'album -->
+		    <div class="row">
+		      <ui:repeat var="image" value="#{albumController.listeImage}">
+		        <div class="col s12 m6">
+		          <div class="card">
+		            <div class="card-image">
+		              <h:graphicImage value="resources/img/#{image.getAlbum().getOwner().getId()}/#{image.getAlbum().getId()}/#{image.getTitle()}" class="minature-album" alt="image"/>
+		            </div>
+		            <div class="card-action">
+		              <h:form>
+			    		<h:commandLink action="#{taggingController.tagPhoto}" value="tagger la photo">
+							<f:param name="photoId" value="#{image.id}" />
+							<f:param name="idAlbum" value="#{albumController.album.id}" />
+						</h:commandLink>  
+						<h:commandLink action="#{albumController.deletePicture(image.id)}" value="supprimer">
+							<f:param name="photoId" value="#{image.id}" />
+							<f:param name="idAlbum" value="#{albumController.album.id}" />
+						</h:commandLink>
+				      </h:form>
+		            </div>
+		          </div>
+		        </div>
+   			 </ui:repeat>
+		   </div>
+	    </div>
     </h:body>
 </html>

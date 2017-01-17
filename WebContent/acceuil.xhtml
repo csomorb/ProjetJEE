@@ -3,54 +3,81 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
 	xmlns:f="http://java.sun.com/jsf/core" 
 	xmlns:h="http://java.sun.com/jsf/html">
+	<h:head>
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<h:outputStylesheet library="js" name="materialize.min.js"  />
+	</h:head>
 <h:body>
-
-Connectez-vous : <br/>
-
-<h:form>
-		<h:outputLabel for="email" value="Adresse email : " />
-		<h:inputText id="email" value="#{appUserSession.email}" 
-			title="Renseignez votre email"/>
-			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-		<br/>
-		
-		<h:inputSecret id="password" value="#{appUserSession.password}" 
-			title="Donnez un mot de passe"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		
-		<h:commandButton action="#{appUserSession.login()}" value="Me connecter"/>
-</h:form>
-
-
-Ou créez un compte :
-
-<h:form>
-		<h:outputLabel for="email" value="Adresse email : " />
-		<h:inputText id="email" value="#{appUserController.user.email}" 
-			title="Renseignez votre email"/>
-			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-		<br/>
-		<h:outputLabel for="lastname" value="Nom : " />
-		<h:inputText id="lastname" value="#{appUserController.user.lastname}" 
-			title="Donnez votre nom"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		<h:outputLabel for="firstname" value="Prénom : " />
-		<h:inputText id="firstname" value="#{appUserController.user.firstname}" 
-			title="Donnez votre prénom"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		
-		<h:inputSecret id="password" value="#{appUserController.user.password}" 
-			title="Donnez un mot de passe"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		
-		<h:commandButton action="#{appUserController.create()}" value="Créer mon compte"/>
-	</h:form>
-
-
-
+	<div class="menu ">
+	  <nav>
+	    <div class="nav-wrapper teal darken-3">
+	      <div class="container">
+	        <a href="#" class="brand-logo">Mon Appli Photo</a>
+	      </div>
+	    </div>
+	  </nav>
+	</div>
+	<div class="container">
+		<div class="row">
+		  <div class="col s12 m6">
+		    <div class="card teal darken-3">
+		      <div class="card-content white-text">
+		        <span class="card-title">Connectez-vous : </span>
+				<!--  connection -->
+				<h:form>
+						<h:outputLabel for="email" value="Adresse email : " />
+						<h:inputText id="email" value="#{appUserSession.email}" 
+							title="Renseignez votre email"/>
+							<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+						<br/>
+						<h:outputLabel for="email" value="mot de passe : " />
+						<h:inputSecret id="password" value="#{appUserSession.password}" 
+							title="Donnez un mot de passe"/>
+							<!-- validator="#{ajoutAlbum.validerZip}"  -->
+						<br/>
+						
+						<h:commandButton class="waves-effect waves-light btn" action="#{appUserSession.login()}" value="Me connecter"/>
+				</h:form>
+				</div>
+			</div>
+		</div>
+		<div class="col s12 m6">
+		    <div class="card teal darken-3">
+				<div class="card-content white-text">
+			        <span class="card-title">Ou créez un compte :</span>
+					<h:form>
+						<h:outputLabel for="email" value="Adresse email : " />
+						<h:inputText id="email" value="#{appUserController.user.email}" 
+							title="Renseignez votre email"/>
+							<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+						<br/>
+						<h:outputLabel for="lastname" value="Nom : " />
+						<h:inputText id="lastname" value="#{appUserController.user.lastname}" 
+							title="Donnez votre nom"/>
+							<!-- validator="#{ajoutAlbum.validerZip}"  -->
+						<br/>
+						<h:outputLabel for="firstname" value="Prénom : " />
+						<h:inputText id="firstname" value="#{appUserController.user.firstname}" 
+							title="Donnez votre prénom"/>
+							<!-- validator="#{ajoutAlbum.validerZip}"  -->
+						<br/>
+						
+						<h:inputSecret id="password" value="#{appUserController.user.password}" 
+							title="Donnez un mot de passe"/>
+							<!-- validator="#{ajoutAlbum.validerZip}"  -->
+						<br/>
+						
+						<h:commandButton class="waves-effect waves-light btn" action="#{appUserController.create()}" value="Créer mon compte"/>
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </h:body>
 </html>

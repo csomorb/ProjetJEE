@@ -8,71 +8,113 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
 <f:view>
-<h:head>
-</h:head>
+	<h:head>
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<h:outputStylesheet library="js" name="materialize.min.js"  />
+	</h:head>
 <h:body>
-	<h:form >
-		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
-		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
-		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
-	</h:form>
-	
-	<h1>Mes albums</h1>
-	
-	<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() > 0 }">
-		<h:form >
-			<h:dataTable value="#{albumController.listAlbumOwnedByCurrentUser}" var="alb" >
-   				<h:column>    				
-     				<f:facet name="header">Titre</f:facet>    				
-     				<h:outputText value="#{alb.title}"/> 
-   				</h:column>
-   				<h:column>
-				    <f:facet name="header">Description</f:facet>
-				    <h:outputText value="#{alb.description}"/> 
-			   </h:column>
-			   <h:column>
-			   	  <f:facet name="header">Lien de l'album</f:facet>	  
-			      <h:commandButton action="#{albumController.afficherAlbum}" value="Afficher album">
-					<f:param name="idAlbum" value="#{alb.id}" />
-				  </h:commandButton> 				
-			   </h:column>  
-			   <!-- 
-			   <h:column>
-			      <h:commandLink action="#{albumController.delete(alb.id)}" value="Supprimer l'album"/>
-			   </h:column>
-			   -->
-			</h:dataTable>
-
-		</h:form>	
-	</c:if>
+	<div class="menu ">
+	  <nav>
+	    <div class="nav-wrapper teal darken-3">
+	      <div class="container">
+	        <a href="#" class="brand-logo">Mon Appli Photo</a>
+	        <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <h:form>
+	           <li><h:commandLink action="#{rechercheController.rech()}" value="Rechercher des photos"/></li>
+	           <li><h:commandLink action="#{albumController.ajout()}" value="Ajouter un album"/></li>
+	           <li><h:commandLink action="#{appUserSession.logout()}" value="Me déconnecter"/></li>
+	        </h:form>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+	</div>
+	<div class="container">
+		<h4>Mes albums</h4>
+		<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() > 0 }">
+		<div class="row">
+	  	  <h:form >
+	  	    <ui:repeat var="alb" value="#{albumController.listAlbumOwnedByCurrentUser}">
+		  	  <div class="col s12 m6">
+				    <div class="card horizontal">
+				      <div class="card-image">
+				        <img src="http://lorempixel.com/100/190/nature/6"></img>
+				      </div>
+				      <div class="card-stacked">
+				        <div class="card-content">
+				        	<h5><h:outputText value="#{alb.title}"/></h5>
+				        	<p><h:outputText value="#{alb.description}"/></p>
+				        </div>
+				        <div class="card-action">
+				          <h:commandLink action="#{albumController.afficherAlbum}" value="Afficher album">
+							<f:param name="idAlbum" value="#{alb.id}" />
+						  </h:commandLink> 
+				        </div>
+				      </div>
+				    </div>
+    		   </div>
+			</ui:repeat>
+		  </h:form>
+	  </div>
+	</c:if>	
+		
 	<c:if test="#{albumController.listAlbumOwnedByCurrentUser.size() == 0 }">
-  		Vous n'avez pas encore d'album, vous pouvez en ajouter en cliquant sur le bouton ajouter un album. 
+		<div class="row">
+			<div class="col s12">
+			    <div class="card teal lighten-3">
+			    	<div class="card-content">
+			    		Vous n'avez pas encore d'album, vous pouvez en ajouter en cliquant sur le bouton ajouter un album. 
+			    	</div>
+			    </div>
+		    </div>
+	    </div>
 	</c:if>
+	
+	<h4>Albums partagés avec moi</h4>
+		<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() > 0 }">
+		  <div class="row">
+  	        <h:form >
+	  	        <ui:repeat var="alb" value="#{albumController.listAlbumShareWdithCurrentUser}">
+		  	        <div class="col s12 m6">
+					    <div class="card horizontal">
+					      <div class="card-image">
+					        <img src="http://lorempixel.com/100/190/nature/6"></img>
+					      </div>
+					      <div class="card-stacked">
+					        <div class="card-content">
+					        	<h5><h:outputText value="#{alb.title}"/></h5>
+					        	<p><h:outputText value="#{alb.description}"/></p>
+					        </div>
+					        <div class="card-action">
+					          <h:commandLink action="#{albumController.afficherAlbum}" value="Afficher album">
+								<f:param name="idAlbum" value="#{alb.id}" />
+							  </h:commandLink> 
+					        </div>
+					      </div>
+					    </div>
+	    		   	</div>
+	  	        </ui:repeat>
+  	        </h:form>
+  	      </div>
+		</c:if>
 
-	<h1>Albums partagés avec moi</h1>
-	<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() > 0 }">
-		<h:form >
-			<h:dataTable value="#{albumController.listAlbumShareWdithCurrentUser}" var="alb" >
-   				<h:column>    				
-     				<f:facet name="header">Titre</f:facet>    				
-     				<h:outputText value="#{alb.title}"/> 
-   				</h:column>
-   				<h:column>
-      				<f:facet name="header">Description</f:facet>
-      				<h:outputText value="#{alb.description}"/> 
-   				</h:column>
-   				<h:column>
-   	  				<f:facet name="header">Lien de l'album</f:facet>	  
-      				<h:commandButton action="#{albumController.afficherAlbum}" value="Afficher album">
-						<f:param name="idAlbum" value="#{alb.id}" />
-					</h:commandButton> 	
-   				</h:column>  
-			</h:dataTable>
-		</h:form>	
-	</c:if>
-	<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() == 0 }">
-		Les utilisateurs n'ont pas encore partagé d'album avec vous
-	</c:if>
+		<c:if test="#{albumController.listAlbumShareWdithCurrentUser.size() == 0 }">
+			<div class="row">
+				<div class="col s12">
+				    <div class="card teal lighten-3">
+				    	<div class="card-content">
+				    		Les utilisateurs n'ont pas encore partagé d'album avec vous. 
+				    	</div>
+				    </div>
+			    </div>
+		    </div>
+		</c:if>
+	</div>
 </h:body>
 </f:view>
 </html>

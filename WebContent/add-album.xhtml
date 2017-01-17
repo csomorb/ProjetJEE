@@ -4,36 +4,68 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
-
+    
+<h:head>
+	<!--Import Google Icon Font-->
+     	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+     	<h:outputStylesheet library="js" name="materialize.min.js"  />
+</h:head>
 <h:body>
-	<h:form >
-		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos"/>
-		<h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
-		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>
-	</h:form>
-
-	<h:form enctype="multipart/form-data">
-		<h:outputLabel for="titre" value="Titre : " />
-		<h:inputText id="titre" value="#{albumController.album.title}" 
-			title="Renseignez le titre de l'album"/>
-			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-		<br/>
-		<h:outputLabel for="description" value="Description : " />
-		<h:inputText id="description" value="#{albumController.album.description}" 
-			title="Donnez une description de l'album"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
+	<div class="menu ">
+	  <nav>
+	    <div class="nav-wrapper teal darken-3">
+	      <div class="container">
+	        <a href="#" class="brand-logo">Mon Appli Photo</a>
+	        <ul id="nav-mobile" class="right hide-on-med-and-down">
+	        <h:form>
+	           <li><h:commandLink action="#{rechercheController.rech()}" value="Rechercher des photos"/></li>
+	           <li><h:commandLink action="#{albumController.listAlbum}" value="Voire tous les albums"/></li>
+	           <li><h:commandLink action="#{appUserSession.logout()}" value="Me déconnecter"/></li>
+	        </h:form>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+	</div> 
+	<div class="container">
+		<h4>Créer un nouvel album</h4>
+		<div class="row">
+	      <div class="col s12">
+	        <div class="card">
+	          <div class="card-content">
+	            <h:form enctype="multipart/form-data">
+					<h:outputLabel for="titre" value="Titre du nouvel album : " />
+					<h:inputText id="titre" value="#{albumController.album.title}" 
+						title="Renseignez le titre de l'album"/>
+						<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+					<br/>
+					<h:outputLabel for="description" value="Description : " />
+					<h:inputText id="description" value="#{albumController.album.description}" 
+						title="Donnez une description de l'album"/>
+						<!-- validator="#{ajoutAlbum.validerZip}"  -->
+					<br/>
+					<div class="row">
+						<div class="col s12 m9">
+							<h:outputLabel for="zip" value="Fichier zip avec photos" /><br/>
+							<h:inputFile id="zip" value="#{albumController.zip}" 
+								title="Choisissez un fichier zip avec des images"
+								required="true" requiredMessage="Il faut choisir un fichier"/>
+						</div>
+						<div class="col s12 m3">
+							<h:commandButton class="waves-effect waves-light btn" action="#{albumController.createAlbum()}" value="Créer l'album"/>
+						</div>
+					</div>
+				</h:form>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+      
+      
 		
-		<h:outputLabel for="zip" value="Fichier zip avec photos" />
-		<h:inputFile id="zip" value="#{albumController.zip}" 
-			title="Choisissez un fichier zip avec des images"
-			required="true" requiredMessage="Il faut choisir un fichier"/>
-			
-		
-		<br/>
-		<h:commandButton action="#{albumController.createAlbum()}" value="Créer l'album"/>
-	</h:form>
-	
+	</div>
 </h:body>
 
 </html>
