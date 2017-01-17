@@ -74,7 +74,7 @@
 		    <!-- affichage de l'album -->
 		    <div class="row">
 		      <ui:repeat var="image" value="#{albumController.listeImage}">
-		        <div class="col s12 m6">
+		        <div class="col s12 m4">
 		          <div class="card">
 		            <div class="card-image">
 		              <h:graphicImage value="resources/img/#{image.getAlbum().getOwner().getId()}/#{image.getAlbum().getId()}/#{image.getTitle()}" class="minature-album" alt="image"/>
@@ -84,7 +84,7 @@
 			    		<h:commandLink action="#{taggingController.tagPhoto}" value="tagger la photo">
 							<f:param name="photoId" value="#{image.id}" />
 							<f:param name="idAlbum" value="#{albumController.album.id}" />
-						</h:commandLink>  
+						</h:commandLink>
 						<h:commandLink action="#{albumController.deletePicture(image.id)}" value="supprimer">
 							<f:param name="photoId" value="#{image.id}" />
 							<f:param name="idAlbum" value="#{albumController.album.id}" />

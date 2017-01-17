@@ -8,39 +8,78 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Partager son album</title>
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<h:outputStylesheet library="js" name="materialize.min.js"  />
     </h:head>
     <h:body>
-    <h:form >
-		<h:commandButton action="#{rechercheController.rech()}" value="Rechercher des photos">
-			<f:param name="idAlbum" value="#{partageController.album.id}" />
-		</h:commandButton>	
-		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album">
-			<f:param name="idAlbum" value="#{partageController.album.id}" />
-		</h:commandButton>	
-		<h:commandButton action="#{albumController.afficherAlbum}" value="Retour a l album">
-			<f:param name="idAlbum" value="#{partageController.album.id}" />
-        </h:commandButton>
-        <h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums">
-        	<f:param name="idAlbum" value="#{partageController.album.id}" />
-        </h:commandButton>
-		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter">
-			<f:param name="idAlbum" value="#{partageController.album.id}" />
-		</h:commandButton>	
-	</h:form>	
-    <h3>Partager l'abum</h3>
-    Partager l'album <h:outputText value="#{partageController.album.title}"></h:outputText>   avec les utilisateurs : 
-    <br/>
-	<c:forEach var="entry" items="#{partageController.selectedUsers.entrySet().toArray()}" >
-	
-		<h:outputText value="#{entry.key.firstname}"/> #{entry.key.lastname} 
-		<h:form>
-			<h:commandButton action="#{partageController.modifierPartage()}" value="#{entry.value}">
-				<f:param name="idAlbum" value="#{partageController.album.id}" />
-				<f:param name="idUser" value="#{entry.key.id}" />
-				<f:param name="action_partage" value="#{entry.value}" />
-			</h:commandButton>
-		</h:form>
-	</c:forEach>
-    	
+	   	<div class="menu ">
+		  <nav>
+		    <div class="nav-wrapper teal darken-3">
+		      <div class="container">
+		        <a href="#" class="brand-logo">Mon Appli Photo</a>
+		        <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <h:form>
+		           <li>
+		           		<h:commandLink action="#{rechercheController.rech()}" value="Rechercher des photos">
+		           			<f:param name="idAlbum" value="#{partageController.album.id}" />
+	           			</h:commandLink>
+	           	   </li>
+		           <li>
+		          		<h:commandLink action="#{albumController.ajout()}" value="Ajouter un album">
+		          			<f:param name="idAlbum" value="#{partageController.album.id}" />
+	          			</h:commandLink>
+	           	   </li>
+		           <li>
+		           		<h:commandLink action="#{albumController.afficherAlbum}" value="Retour a l album">
+		           			<f:param name="idAlbum" value="#{partageController.album.id}" />
+	           			</h:commandLink>
+		           </li>
+		           <li>
+		           		<h:commandLink action="#{albumController.listAlbum}" value="Voire tous les albums">
+		           			<f:param name="idAlbum" value="#{partageController.album.id}" />
+	           			</h:commandLink>
+		           </li>
+   		           <li>
+		           		<h:commandLink action="#{appUserSession.logout()}" value="Me déconnecter">
+		           			<f:param name="idAlbum" value="#{partageController.album.id}" />
+	           			</h:commandLink>
+		           </li>
+		        </h:form>
+		        </ul>
+		      </div>
+		    </div>
+		  </nav>
+		</div> 
+		<div class="container">
+			<h4>Partager l'abum</h4>
+		    Partager l'album <h:outputText value="#{partageController.album.title}"></h:outputText>   avec les utilisateurs : 
+		    <br/>
+		    <div class="row">
+		    	<c:forEach var="entry" items="#{partageController.selectedUsers.entrySet().toArray()}" >
+		    		<div class="col s12 m3">
+					    <div class="card">
+					      <div class="card-image">
+					        <img src="/test/faces/resources/img/user.png"></img>
+					        <span class="card-title" style="text-align: center;">#{entry.key.firstname} #{entry.key.lastname} </span>
+					      </div>
+					        <div class="card-action">
+						          <h:form>
+									<h:commandLink action="#{partageController.modifierPartage()}" value="#{entry.value}">
+										<f:param name="idAlbum" value="#{partageController.album.id}" />
+										<f:param name="idUser" value="#{entry.key.id}" />
+										<f:param name="action_partage" value="#{entry.value}" />
+									</h:commandLink>
+								</h:form>
+					        </div>
+					    </div>
+					  </div>
+		    	</c:forEach>
+		    </div>
+    	</div>
     </h:body>
 </html>

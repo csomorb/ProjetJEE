@@ -4,10 +4,39 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:h="http://java.sun.com/jsf/html"
     xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <title>Album</title>
+        <h:outputStylesheet library="css" name="album.css"  />
 
+		<!--Import Google Icon Font-->
+      	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+
+		<h:outputStylesheet library="css" name="materialize.min.css"  />
+		
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      	<h:outputStylesheet library="js" name="materialize.min.js"  />
+    </h:head>
 <f:view>
 <h:body>
-	<h1>UserList</h1>
+		<div class="menu ">
+		  <nav>
+		    <div class="nav-wrapper teal darken-3">
+		      <div class="container">
+		        <a href="#" class="brand-logo">Mon Appli Photo</a>
+		        <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <h:form>
+		           <li><h:commandLink action="#{rechercheController.rech()}" value="Rechercher des photos"/></li>
+		           <li><h:commandLink action="#{albumController.ajout()}" value="Ajouter un album"/></li>
+		           <li><h:commandLink action="#{albumController.listAlbum}" value="Voire tous les albums"/></li>
+		           <li><h:commandLink action="#{appUserSession.logout()}" value="Me déconnecter"/></li>
+		        </h:form>
+		        </ul>
+		      </div>
+		    </div>
+		  </nav>
+		</div> 
+<div class="container">
+	<h4>Liste des utilisateurs</h4>
 
 <h:form >
 
@@ -30,6 +59,7 @@
 </h:dataTable>
 
 </h:form>	
+</div>
 </h:body>
 </f:view>
 </html>

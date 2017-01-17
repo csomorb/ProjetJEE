@@ -1,5 +1,163 @@
-.myTextArea {
-    width: 100%;
-    height: 15rem;
+.teal.darken-3 {
+    background-color: #00695c !important;
+}
+nav .nav-wrapper {
+    position: relative;
+    height: 100%;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+    line-height: 64px;
+}
+nav {
+    color: #fff;
+}
+html {
+    line-height: 1.5;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    color: rgba(0,0,0,0.87);
+}
+html {
+    font-size: 15px;
+}
+nav .brand-logo {
+    position: absolute;
+    color: #fff;
+    display: inline-block;
+    font-size: 2.1rem;
+    padding: 0;
+    white-space: nowrap;
+}
+a:active, a:hover {
+    outline: 0;
+}
+a {
     background-color: transparent;
+}
+nav ul a:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+a:active, a:hover {
+    outline: 0;
+}
+nav ul a {
+    transition: background-color .3s;
+    font-size: 1rem;
+    color: #fff;
+    display: block;
+    padding: 0 15px;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+}
+ul:not(.browser-default) li {
+    list-style-type: none;
+}
+nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+    line-height: 64px;
+}
+nav, section, summary {
+    display: block;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+    height: 64px;
+    line-height: 64px;
+}
+nav {
+    color: #fff;
+    background-color: #ee6e73;
+    width: 100%;
+}
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+}
+.container {
+    width: 70%;
+}
+.container {
+    margin: 0 auto;
+    max-width: 1280px;
+    
+}
+ul:not(.browser-default) li {
+    list-style-type: none;
+}
+nav ul li {
+    transition: background-color .3s;
+    float: left;
+    padding: 0;
+}
+.right {
+    float: right !important;
+}
+nav ul {
+    margin: 0;
+}
+body {
+    margin: 0;
+}
+h4 {
+    font-size: 2.28rem;
+    line-height: 110%;
+    margin: 1.14rem 0 0.912rem 0;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+    line-height: 1.1;
+}
+.card {
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+}
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 1px 5px 0 rgba(0,0,0,0.12),0 3px 1px -2px rgba(0,0,0,0.2);
+}
+.card .card-content {
+    padding: 20px;
+
+    border-radius: 0 0 2px 2px;
+	height: 234px;
+}
+.col.m6 {
+    width: 50%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+}
+.row .col {
+    float: left;
+    box-sizing: border-box;
+    padding: 0 0.75rem;
+    min-height: 1px;
+}
+.container .row {
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+.row {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+.col.m6 {
+    width: 50%;
+    margin-left: auto;
+    left: auto;
+    right: auto;
+}
+.row .col {
+    float: left;
+    box-sizing: border-box;
+    padding: 0 0.75rem;
+    min-height: 1px;
 }
