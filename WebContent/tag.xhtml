@@ -8,51 +8,71 @@
     <h:head>
     	<h:outputStylesheet library="css" name="album.css"  />
         <title>Taguer la photo</title>
+   	    <h:outputStylesheet library="css" name="album.css"  />
+   		<h:outputStylesheet library="css" name="myCss.css"  />
     </h:head>
     <h:body>
-    <h:form >
-		<h:commandButton action="#{albumController.ajout()}" value="Ajouter un album"/>
-        <h:commandButton action="#{albumController.listAlbum}" value="Voire tous les albums"/>
-		<h:commandButton action="#{appUserSession.logout()}" value="Me déconnecter"/>	
-	</h:form>
-    <h2> Taguer la photo : </h2>
-    
-    <img src="#{taggingController.picture.getLocalfile()}" alt="s" class="minature-album"/> 
-        
-    <h:form>
-		<h:panelGrid columns="3" cellpadding="5">
-			<h:outputLabel for="menu" value="Ou la photo a été  prise:" />
-		    <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Sélectionez un lieu"
-		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-		        <f:selectItems value="#{taggingController.listeLieu}" />
-	       	</p:selectCheckboxMenu>
-		</h:panelGrid>
-        
-        Quand la photo a été prise :  
-        <h:panelGrid columns="2" cellpadding="5">
-        <p:outputLabel for="inline" value="Date de la prise de vue: " />
-        <p:calendar id="inline" value="#{taggingController.date}" mode="inline" />
-        </h:panelGrid>
-        
-        <h:panelGrid columns="3" cellpadding="5">
-		        <h:outputLabel for="menu2" value="Avec qui la photo a été prise :" />
-		        <p:selectCheckboxMenu id="menu2" value="#{taggingController.selectedPersonne}" label="Sélectionez les personnes"
-		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-		            <f:selectItems value="#{taggingController.listePersonne}" />
-		        </p:selectCheckboxMenu>
-		</h:panelGrid>       
-        
-        <h:panelGrid columns="3" cellpadding="5">
-		        <h:outputLabel for="menu3" value="Ce qu'on trouve sur la photo :" />
-		        <p:selectCheckboxMenu id="menu3" value="#{taggingController.selectedObjet}" label="Sélectionez les objets"
-		                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
-		            <f:selectItems value="#{taggingController.listeObjet}" />
-		        </p:selectCheckboxMenu>
-		</h:panelGrid>
-        
-	    <h:commandButton action="#{taggingController.taguer()}" value="Annoter la photo">
-			<f:param name="photoId" value="#{taggingController.picture.id}" />
-		</h:commandButton>     
-    </h:form>  
+    <div class="menu ">
+		  <nav>
+		    <div class="nav-wrapper teal darken-3">
+		      <div class="container">
+		        <a href="#" class="brand-logo">Mon Appli Photo</a>
+		        <ul id="nav-mobile" class="right hide-on-med-and-down">
+		        <h:form>
+		           <li><h:commandLink action="#{albumController.ajout()}" value="Ajouter un album"/></li>
+		           <li><h:commandLink action="#{albumController.listAlbum}" value="Voire tous les albums"/></li>
+		           <li><h:commandLink action="#{appUserSession.logout()}" value="Me déconnecter"/></li>
+		        </h:form>
+		        </ul>
+		      </div>
+		    </div>
+		  </nav>
+		</div> 
+		<div class="container">
+		    <h4> Taguer la photo : </h4>
+		    <div class="card">
+				<div class="card-content">
+					<div class="row">
+		    			<img src="#{taggingController.picture.getLocalfile()}" alt="s" class="minature-album"/>       
+					    <h:form>
+							<div class="col m6">
+								<h:panelGrid columns="3" cellpadding="5">
+									<h:outputLabel for="menu" value="Ou la photo a été  prise:" />
+								    <p:selectCheckboxMenu id="menu" value="#{taggingController.selectedLieu}" label="Sélectionez un lieu"
+								                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+								        <f:selectItems value="#{taggingController.listeLieu}" />
+							       	</p:selectCheckboxMenu>
+								</h:panelGrid>
+						        <h:panelGrid columns="3" cellpadding="5">
+								        <h:outputLabel for="menu2" value="Avec qui la photo a été prise :" />
+								        <p:selectCheckboxMenu id="menu2" value="#{taggingController.selectedPersonne}" label="Sélectionez les personnes"
+								                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+								            <f:selectItems value="#{taggingController.listePersonne}" />
+								        </p:selectCheckboxMenu>
+								</h:panelGrid>       
+						        
+						        <h:panelGrid columns="3" cellpadding="5">
+								        <h:outputLabel for="menu3" value="Ce qu'on trouve sur la photo :" />
+								        <p:selectCheckboxMenu id="menu3" value="#{taggingController.selectedObjet}" label="Sélectionez les objets"
+								                              filter="true" filterMatchMode="startsWith" panelStyle="width:250px">
+								            <f:selectItems value="#{taggingController.listeObjet}" />
+								        </p:selectCheckboxMenu>
+								</h:panelGrid>
+					        </div>
+					        <div class="col m6">
+						        Quand la photo a été prise :  
+						        <h:panelGrid columns="2" cellpadding="5">
+						        <p:outputLabel for="inline" value="Date de la prise de vue: " />
+						        <p:calendar id="inline" value="#{taggingController.date}" mode="inline" />
+						        </h:panelGrid>
+					        </div>
+						    <h:commandButton action="#{taggingController.taguer()}" value="Annoter la photo">
+								<f:param name="photoId" value="#{taggingController.picture.id}" />
+							</h:commandButton> 
+					    </h:form>  
+					</div>
+			    </div>
+		    </div>
+		</div>
     </h:body>
 </html>

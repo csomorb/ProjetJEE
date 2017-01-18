@@ -126,6 +126,11 @@ h1, h2, h3, h4, h5, h6 {
     padding: 20px;
 
     border-radius: 0 0 2px 2px;
+}
+.card-content2{
+    padding: 20px;
+
+    border-radius: 0 0 2px 2px;
 	height: 234px;
 }
 .col.m6 {
